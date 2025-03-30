@@ -1,12 +1,7 @@
 <app-navbar></app-navbar>
 
 <div class="main-content">
-  <p class="text">hi i need to get the data from the backend and display it on the frontend</p>
-  <ul>
-    <li *ngFor="let expense of expenses">
-      {{ expense.category }}: ${{ expense.amount }}
-    </li>
-  </ul>
+  <router-outlet></router-outlet>
 </div>
 
 <app-footer></app-footer>
