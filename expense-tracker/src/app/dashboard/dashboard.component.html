@@ -1,0 +1,6 @@
+<p class="text">DASHBOARD</p>
+  <ul>
+    <li *ngFor="let expense of expenses">
+      {{ expense.category }}: ${{ expense.amount }}
+    </li>
+</ul>

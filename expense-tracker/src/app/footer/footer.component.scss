@@ -1,0 +1,12 @@
+.footer {
+    background-color: #f8f9fa;
+    .navbar-brand {
+      font-weight: bold;
+    }
+    .nav-link {
+      color: #6c757d;
+      &:hover {
+        color: #495057;
+      }
+    }
+  }
