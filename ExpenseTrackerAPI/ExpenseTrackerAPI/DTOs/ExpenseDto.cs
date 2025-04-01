@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ExpenseTrackerAPI.Models
+namespace ExpenseTrackerAPI.DTOs
 {
-    public class Expense
+    public class ExpenseDto
     {
         public int Id { get; set; }
         [Required]

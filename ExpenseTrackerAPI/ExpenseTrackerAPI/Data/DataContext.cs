@@ -14,15 +14,16 @@ namespace ExpenseTrackerAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            // Configure Amount column precision and scale
+            modelBuilder.Entity<Expense>()
+                .Property(e => e.Amount)
+                .HasPrecision(18, 2); // Precision (18) and Scale (2)
+
             modelBuilder.Entity<Expense>().HasData(
-                new Expense
-                {
-                    ExpenseID = 10,
-                    Description = "Nintendo Switch",
-                    Amount = 200,
-                    Date = new DateTime(2025, 3, 29),
-                    Category = "Gaming"
-                }
+                new Expense { Id=1, Description = "Groceries", Amount = 50.00m, Date = new DateTime(2025, 3, 30), Category = "Food" },
+                new Expense { Id=2, Description = "Gas", Amount = 30.00m, Date = new DateTime(2025, 3, 30), Category = "Transportation" }
             );
         }
     }
