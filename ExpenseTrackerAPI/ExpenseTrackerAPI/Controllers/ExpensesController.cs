@@ -1,30 +1,28 @@
 ﻿using AutoMapper;
-using ExpenseTrackerAPI.Data;
 using ExpenseTrackerAPI.DTOs;
 using ExpenseTrackerAPI.Models;
+using ExpenseTrackerAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-// Need to add repository design pattern
-// Need to add DTOs
+// Add a Json repository to practice repository pattern
 
 [ApiController]
 [Route("api/[controller]")]
 public class ExpensesController : ControllerBase
 {
-    private readonly DataContext _context;
     private readonly IMapper _mapper;
+    private readonly IRepository<Expense> _repository;
 
-    public ExpensesController(DataContext context, IMapper mapper)
+    public ExpensesController(IMapper mapper, IRepository<Expense> repository)
     {
-        _context = context;
         _mapper = mapper;
+        _repository = repository;
     }
 
     [HttpGet]
-    public IActionResult GetExpenses()
+    public IActionResult GetAllExpenses()
     {
-        var expenses = _context.Expenses.ToList();
+        var expenses = _repository.GetAll();
         var expenseDtos = _mapper.Map<List<ExpenseDto>>(expenses);
         return Ok(expenseDtos);
     }
@@ -32,10 +30,10 @@ public class ExpensesController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult GetExpenseById(int id)
     {
-        var expense = _context.Expenses.Find(id);
+        var expense = _repository.GetById(id);
         if (expense == null)
         {
-            return NotFound();
+            return NotFound($"Failed to get expense. The id {id} does not correspond to a valid expense.");
         }
         var expenseDto = _mapper.Map<ExpenseDto>(expense);
         return Ok(expenseDto);
@@ -48,11 +46,9 @@ public class ExpensesController : ControllerBase
         {
             return BadRequest("Expense data is required.");
         }
-
-        expenseDto.Id = 0;
         var expense = _mapper.Map<Expense>(expenseDto);
-        _context.Expenses.Add(expense);
-        _context.SaveChanges();
+        expenseDto.Id = 0;
+        _repository.AddItem(expense);
 
         var createdExpenseDto = _mapper.Map<ExpenseDto>(expense);
 
@@ -62,37 +58,31 @@ public class ExpensesController : ControllerBase
     [HttpPut]
     public IActionResult UpdateExpenseWithId(int id, [FromBody] Expense expense)
     {
-        // Update the existing expense
-        var expenseToUpdate = _context.Expenses.Find(id);
-
-        if (expenseToUpdate == null)
+        if (expense == null)
         {
-            return NotFound(); // Expense with the given ID doesn't exist
+            return BadRequest("In order to update, new expense data is required.");
         }
 
-        expenseToUpdate.Description = expense.Description;
-        expenseToUpdate.Amount = expense.Amount;
-        expenseToUpdate.Date = expense.Date;
-        expenseToUpdate.Category = expense.Category;
+        bool isValidId = _repository.UpdateItemWithId(id, expense);
 
-        _context.SaveChanges(); // Commit the update to the database
+        if (!isValidId)
+        {
+            return NotFound($"Failed to update expense. The id {id} does not correspond to a valid expense."); // Expense with the given ID doesn't exist
+        }
 
-        return Ok(expenseToUpdate);
+        return Ok(expense);
     }
 
     [HttpDelete("{id}")]
-    public IActionResult DeleteExpense(int id)
+    public IActionResult DeleteExpenseWithId(int id)
     {
-        var expense = _context.Expenses.Find(id);
 
-        if (expense == null)
+        bool isValidId = _repository.DeleteItemWithId(id);
+        if (!isValidId)
         {
-            return NotFound(); // Expense with the given ID doesn't exist
+            return NotFound($"Failed to delete expense. The id {id} does not correspond to a valid expense."); // Expense with the given ID doesn't exist
         }
 
-        _context.Expenses.Remove(expense);
-        _context.SaveChanges(); // Commit the deletion to the database
-
-        return NoContent(); // 204 No Content (successful delete)
+        return NoContent();
     }
 }

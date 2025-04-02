@@ -1,5 +1,8 @@
 using ExpenseTrackerAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using ExpenseTrackerAPI.Models;
+using ExpenseTrackerAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +13,9 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<IRepository<Expense>, SqlRepository<Expense>>();
 
 // Add CORS policy
 builder.Services.AddCors(options =>
