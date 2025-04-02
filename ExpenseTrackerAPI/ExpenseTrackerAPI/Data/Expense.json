@@ -1,0 +1,17 @@
+[
+  {
+    "Id": 1,
+    "Description": "TVVV JSON!",
+    "Amount": 300.00
+  },
+  {
+    "Id": 2,
+    "Description": "Gas",
+    "Amount": 120.00
+  },
+  {
+    "Id": 3,
+    "Description": "Water bottle",
+    "Amount": 5.00
+  }
+]

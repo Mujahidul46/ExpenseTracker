@@ -15,7 +15,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddScoped<IRepository<Expense>, SqlRepository<Expense>>();
+
+// Choose your database!
+
+//builder.Services.AddScoped<IRepository<Expense>, SqlRepository<Expense>>(); // Uses SQL database
+string filePath = "C:\\Users\\Mujah\\OneDrive\\Desktop\\ExpenseTrackerApp\\ExpenseTrackerAPI\\ExpenseTrackerAPI\\Data\\Expense.json";
+builder.Services.AddScoped<IRepository<Expense>>(provider => new JsonRepository<Expense>(filePath)); // Uses Json database
+// to do add in memory storage
 
 // Add CORS policy
 builder.Services.AddCors(options =>
