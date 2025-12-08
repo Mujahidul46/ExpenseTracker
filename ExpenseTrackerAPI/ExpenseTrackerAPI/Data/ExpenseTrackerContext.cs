@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ExpenseTrackerAPI.Models;
 
-namespace ExpenseTrackerAPI
+namespace ExpenseTrackerAPI.Data
 {
     public class ExpenseTrackerContext : DbContext
     {
@@ -10,5 +11,11 @@ namespace ExpenseTrackerAPI
         }
 
         public DbSet<Expense> Expenses { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Expense>().ToTable("Expenses", "ex");
+            // add other tables too
+        }
     }
 }

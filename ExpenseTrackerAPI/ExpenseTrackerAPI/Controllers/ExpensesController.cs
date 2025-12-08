@@ -1,5 +1,7 @@
-using ExpenseTrackerAPI;
+using ExpenseTrackerAPI.Data;
 using Microsoft.AspNetCore.Mvc;
+using ExpenseTrackerAPI.Models;
+using ExpenseTrackerAPI.Dtos;
 
 namespace ExpenseTrackerAPI.Controllers
 {
@@ -12,46 +14,65 @@ namespace ExpenseTrackerAPI.Controllers
         {
             _dbContext = dbContext;
         }
-        [HttpGet]
-        public ActionResult<List<Expense>> GetExpenses()
+
+        [HttpGet("user/{userId}")]
+        public ActionResult<List<ExpenseDto>> GetExpenses(int userId)
         {
-            var expenses = _dbContext.Expenses.ToList();
-            return Ok(expenses);
+            // add validation for userId
+            var expenses = _dbContext.Expenses.Where(expenses => expenses.UserId == userId).ToList();
+
+            var expenseDtos = expenses.Select(expense => new ExpenseDto
+            {
+                Id = expense.Id,
+                Name = expense.Name,
+                Amount = expense.Amount
+            }).ToList();
+
+            return Ok(expenseDtos);
         }
 
-        // Get by id
         [HttpGet("{id}")]
-        public ActionResult<Expense> GetExpenseById(int id)
+        public ActionResult<ExpenseDto> GetExpenseById(int id)
         {
             var expense = _dbContext.Expenses.Find(id);
             if (expense == null)
             {
                 return NotFound();
             }
-            return expense;
+            var expenseDto = new ExpenseDto
+            {
+                Id = expense.Id,
+                Name = expense.Name,
+                Amount = expense.Amount
+            };
+            return expenseDto;
         }
 
-        // Create
         [HttpPost]
-        public ActionResult<Expense> CreateExpense(Expense expense)
+        public ActionResult<ExpenseDto> CreateExpense(CreateExpenseDto expense)
         {
             var newExpense = new Expense
             {
                 Name = expense.Name,
-                Amount = expense.Amount
+                Amount = expense.Amount ?? 0m
             };
-
+            
             _dbContext.Expenses.Add(newExpense);
             _dbContext.SaveChanges();
 
+            var expenseDto = new ExpenseDto
+            {
+                Id = newExpense.Id,
+                Name = newExpense.Name,
+                Amount = newExpense.Amount
+            };
+
             return CreatedAtAction(nameof(GetExpenseById), // Tells ASP.NET to use the GetExpenseById method to generate the URL
-                new { id = newExpense.Id }, // Supplies the new expense's Id to GetExpenseById method
-                newExpense); // The newly created expense object's data so we can see it in the response body
+                new { id = expenseDto.Id }, // Supplies the new expense's Id to GetExpenseById method
+                expenseDto); // The newly created expense object's data so we can see it in the response body
         }
 
-
-        // Update
-        [HttpPut("{id}")]
+        [HttpPut("{id}")] // need to update to use dto
         public ActionResult<Expense> UpdateExpense(int id, Expense newExpenseDetails)
         {
             var expense = _dbContext.Expenses.Find(id);
@@ -68,8 +89,7 @@ namespace ExpenseTrackerAPI.Controllers
         }
 
 
-        // Delete
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] // need to update to use dto
         public ActionResult DeleteExpense(int id)
         {
             var expense = _dbContext.Expenses.Find(id);
