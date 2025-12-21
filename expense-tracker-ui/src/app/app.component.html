@@ -1,0 +1,20 @@
+<p>hi</p>
+
+<p>All expenses from database:</p>
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Amount</th>
+    <th>Category Name</th>
+  </thead>
+  <tbody>
+    @for (expense of expenses; track expense.id) {
+      <tr>
+        <td>{{expense.name}}</td>
+        <td>{{expense.amount}}</td>
+        <td>{{expense.categoryName}}</td>
+      </tr>
+    }
+  </tbody>
+</table>

@@ -2,6 +2,7 @@ using ExpenseTrackerAPI.Data;
 using Microsoft.AspNetCore.Mvc;
 using ExpenseTrackerAPI.Models;
 using ExpenseTrackerAPI.Dtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseTrackerAPI.Controllers
 {
@@ -15,17 +16,36 @@ namespace ExpenseTrackerAPI.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpGet("user/{userId}")]
+        [HttpGet("users/{userId}")]
         public ActionResult<List<ExpenseDto>> GetExpenses(int userId)
         {
             // add validation for userId
-            var expenses = _dbContext.Expenses.Where(expenses => expenses.UserId == userId).ToList();
+            var expenses = _dbContext.Expenses
+                .Include(expenses => expenses.Category) // if not included, the join doesnt happen and Category is null.
+                .Where(expenses => expenses.UserId == userId)
+                .ToList();
+            //var expenseDtos = new List<ExpenseDto>();
+            //foreach(var expense in expenses)
+            //{
+            //    var expenseDto = new ExpenseDto
+            //    {
+            //        Id = expense.Id,
+            //        Name = expense.Name,
+            //        CategoryId = expense.CategoryId,
+            //        Amount = expense.Amount,
+            //        UserId = expense.UserId
+            //    };
+            //    expenseDtos.Add(expenseDto);
+            //}
 
             var expenseDtos = expenses.Select(expense => new ExpenseDto
             {
                 Id = expense.Id,
                 Name = expense.Name,
-                Amount = expense.Amount
+                Amount = expense.Amount,
+                CategoryId = expense.CategoryId,
+                UserId = expense.UserId,
+                CategoryName = expense.Category.Name
             }).ToList();
 
             return Ok(expenseDtos);
