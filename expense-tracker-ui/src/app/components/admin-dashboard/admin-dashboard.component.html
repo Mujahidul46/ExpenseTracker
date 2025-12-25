@@ -1,0 +1,23 @@
+<p>All expenses EVERYONE because you are an ADMIN</p>
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Amount</th>
+    <th>Category Name</th>
+    <th>User Name</th>
+    <th>User Email</th>
+  </thead>
+  <tbody>
+    @for (expense of adminExpenses; track expense.id) {
+      <tr>
+        <td>{{expense.name}}</td>
+        <td>{{expense.amount}}</td>
+        <td>{{expense.categoryName}}</td>
+        <td>{{expense.userName}}</td>
+        <td>{{expense.userEmail}}</td>
+        <td></td>
+      </tr>
+    }
+  </tbody>
+</table>

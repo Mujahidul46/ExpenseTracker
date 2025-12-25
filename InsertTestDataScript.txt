@@ -1,0 +1,45 @@
+-- this populates database with some basic data for testing purposes
+
+USE [ExpensesDb]
+GO
+
+-- Delete in reverse order (children first)
+DELETE FROM [ex].[Expenses]
+DELETE FROM [ex].[Users]
+DELETE FROM [ex].[Categories]
+GO
+
+-- Now insert fresh
+SET IDENTITY_INSERT [ex].[Categories] ON 
+INSERT [ex].[Categories] ([Id], [Name], [Icon]) VALUES (1, N'Food', N'🍔')
+INSERT [ex].[Categories] ([Id], [Name], [Icon]) VALUES (2, N'Transport', N'✈️')
+INSERT [ex].[Categories] ([Id], [Name], [Icon]) VALUES (3, N'Entertainment', N'🎮')
+INSERT [ex].[Categories] ([Id], [Name], [Icon]) VALUES (4, N'Other', N'?')
+INSERT [ex].[Categories] ([Id], [Name], [Icon]) VALUES (5, N'Not set yet', N'?')
+INSERT [ex].[Categories] ([Id], [Name], [Icon]) VALUES (6, N'Subscription', N'💳')
+SET IDENTITY_INSERT [ex].[Categories] OFF
+GO
+
+SET IDENTITY_INSERT [ex].[Users] ON 
+INSERT [ex].[Users] ([Id], [Name], [Email], [DateOfBirth], [IsAdmin]) VALUES (1, N'Mujahidul Islam', N'mujahidultest@outlook.com', CAST(N'2001-03-19' AS Date), 0)
+INSERT [ex].[Users] ([Id], [Name], [Email], [DateOfBirth], [IsAdmin]) VALUES (3, N'Alice Smith', N'alicesmith3345@outlook.com', CAST(N'1997-10-15' AS Date), 0)
+SET IDENTITY_INSERT [ex].[Users] OFF
+GO
+
+SET IDENTITY_INSERT [ex].[Expenses] ON 
+INSERT [ex].[Expenses] ([Id], [Name], [Amount], [CategoryId], [UserId]) VALUES (1, N'Burger', CAST(7.50 AS Decimal(10, 2)), 1, 1)
+INSERT [ex].[Expenses] ([Id], [Name], [Amount], [CategoryId], [UserId]) VALUES (2, N'Tube', CAST(10.00 AS Decimal(10, 2)), 2, 1)
+INSERT [ex].[Expenses] ([Id], [Name], [Amount], [CategoryId], [UserId]) VALUES (3, N'Xbox Controller', CAST(45.00 AS Decimal(10, 2)), 3, 1)
+INSERT [ex].[Expenses] ([Id], [Name], [Amount], [CategoryId], [UserId]) VALUES (2002, N'Laptop', CAST(1000.00 AS Decimal(10, 2)), 4, 1)
+INSERT [ex].[Expenses] ([Id], [Name], [Amount], [CategoryId], [UserId]) VALUES (2003, N'Pen', CAST(1.00 AS Decimal(10, 2)), 5, 1)
+INSERT [ex].[Expenses] ([Id], [Name], [Amount], [CategoryId], [UserId]) VALUES (3002, N'Tissue box', CAST(2.50 AS Decimal(10, 2)), 4, 1)
+INSERT [ex].[Expenses] ([Id], [Name], [Amount], [CategoryId], [UserId]) VALUES (4002, N'Netflix', CAST(15.99 AS Decimal(10, 2)), 6, 1)
+INSERT [ex].[Expenses] ([Id], [Name], [Amount], [CategoryId], [UserId]) VALUES (4003, N'Spotify', CAST(10.99 AS Decimal(10, 2)), 6, 1)
+INSERT [ex].[Expenses] ([Id], [Name], [Amount], [CategoryId], [UserId]) VALUES (4004, N'YouTube Premium', CAST(13.99 AS Decimal(10, 2)), 6, 1)
+INSERT [ex].[Expenses] ([Id], [Name], [Amount], [CategoryId], [UserId]) VALUES (4005, N'Amazon Prime', CAST(14.99 AS Decimal(10, 2)), 6, 1)
+INSERT [ex].[Expenses] ([Id], [Name], [Amount], [CategoryId], [UserId]) VALUES (4006, N'Disney+', CAST(7.99 AS Decimal(10, 2)), 6, 1)
+INSERT [ex].[Expenses] ([Id], [Name], [Amount], [CategoryId], [UserId]) VALUES (4007, N'Xbox Game Pass', CAST(16.99 AS Decimal(10, 2)), 6, 1)
+INSERT [ex].[Expenses] ([Id], [Name], [Amount], [CategoryId], [UserId]) VALUES (4008, N'ChatGPT Plus', CAST(20.00 AS Decimal(10, 2)), 6, 1)
+INSERT [ex].[Expenses] ([Id], [Name], [Amount], [CategoryId], [UserId]) VALUES (4009, N'iCloud Storage', CAST(2.99 AS Decimal(10, 2)), 6, 1)
+SET IDENTITY_INSERT [ex].[Expenses] OFF
+GO
