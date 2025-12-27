@@ -9,15 +9,33 @@
     <th>User Email</th>
   </thead>
   <tbody>
-    @for (expense of adminExpenses; track expense.id) {
+    @for (expense of expenses; track expense.id) {
       <tr>
         <td>{{expense.name}}</td>
         <td>{{expense.amount}}</td>
         <td>{{expense.categoryName}}</td>
         <td>{{expense.userName}}</td>
         <td>{{expense.userEmail}}</td>
-        <td></td>
       </tr>
     }
   </tbody>
+</table>
+<p></p>
+<p>This is a list of all the users in the system.</p>
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Date of Birth</th>
+    <th>Is user admin?</th>
+  </thead>
+
+  @for (user of users; track user.id) {
+    <tbody>
+      <td>{{user.name}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.dateOfBirth}}</td>
+      <td>{{user.isAdmin ? 'Yes' : 'No'}}</td>
+    </tbody>
+  }
 </table>

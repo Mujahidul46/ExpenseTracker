@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ExpenseService } from '../../services/expenses.service';
-import { AdminExpense } from '../../interfaces/AdminExpense';
+import { UserExpense } from '../../interfaces/UserExpense';
+import { AdminService } from '../../services/admin.service';
+import { User } from '../../interfaces/User';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -9,15 +11,23 @@ import { AdminExpense } from '../../interfaces/AdminExpense';
   styleUrl: './admin-dashboard.component.scss'
 })
 export class AdminDashboardComponent implements OnInit {
-  constructor (private expenseService : ExpenseService){
+  constructor (private expenseService : ExpenseService,
+    private adminService : AdminService,
+  ){
     };
 
-    adminExpenses : AdminExpense[] = [];
+    expenses : UserExpense[] = [];
+    users : User[] = [];
     
     ngOnInit() {
-      this.expenseService.getAllExpensesFromAllUsers().subscribe({
-        next: (data) => this.adminExpenses = data,
+      this.adminService.getAllExpensesFromAllUsers().subscribe({
+        next: (data) => this.expenses = data,
         error: (err) => console.error(err),
       });
+
+      this.adminService.getAllUsers().subscribe({
+        next: (data) => this.users = data,
+        error: (err) => console.error(err),
+      })
     }
 }

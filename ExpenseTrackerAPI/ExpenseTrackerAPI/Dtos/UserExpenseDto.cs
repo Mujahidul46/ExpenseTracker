@@ -1,6 +1,6 @@
 ﻿namespace ExpenseTrackerAPI.Dtos
 {
-    public class AdminExpenseDto
+    public class UserExpenseDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseTrackerAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
     {
@@ -19,18 +19,18 @@ namespace ExpenseTrackerAPI.Controllers
 
         // implement pagination + filtering here later
         [HttpGet("all-expenses")]
-        public ActionResult<List<AdminExpenseDto>> GetAllExpenses() // returns all user's expenses 
+        public ActionResult<List<UserExpenseDto>> GetAllExpenses() // returns all user's expenses 
         {
-            var allExpenses = _dbContext.Expenses
+            var expenses = _dbContext.Expenses
                 .Include(allExpenses => allExpenses.Category)
                 .Include(allExpenses => allExpenses.User)
                 .ToList();
 
-            var allExpenseDtos = new List<AdminExpenseDto>();
+            var expenseDtos = new List<UserExpenseDto>();
 
-            foreach (var expense in allExpenses)
+            foreach (var expense in expenses)
             {
-                var adminExpenseDto = new AdminExpenseDto
+                var expenseWithUserDto = new UserExpenseDto
                 {
                     Id = expense.Id,
                     Name = expense.Name,
@@ -41,16 +41,25 @@ namespace ExpenseTrackerAPI.Controllers
                     UserName = expense.User.Name,
                     UserEmail = expense.User.Email
                 };
-                allExpenseDtos.Add(adminExpenseDto);
+                expenseDtos.Add(expenseWithUserDto);
             }
 
-            return Ok(allExpenseDtos);
+            return Ok(expenseDtos);
         }
 
-        //[HttpGet()]
-        //public IActionResult GetAllUsers() // return if theyre admin or not too
-        //{
+        [HttpGet("users")]
+        public async Task<ActionResult<List<UserDto>>> GetAllUsers()
+        {
+            var userDtos = await _dbContext.Users.Select(user => new UserDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                DateOfBirth = user.DateOfBirth,
+                IsAdmin = user.IsAdmin
+            }).ToListAsync();
 
-        //}
+            return Ok(userDtos);
+        }
     }
 }

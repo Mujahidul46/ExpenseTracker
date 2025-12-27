@@ -1,4 +1,4 @@
-export interface AdminExpense {
+export interface UserExpense {
     id: number;
     name: string;
     amount: number;
