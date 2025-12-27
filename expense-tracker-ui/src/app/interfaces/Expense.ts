@@ -5,4 +5,5 @@ export interface Expense {
     categoryId: number;
     userId: number;
     categoryName: string;
+    categoryIcon: string;
 }

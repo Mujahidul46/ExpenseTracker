@@ -45,7 +45,8 @@ namespace ExpenseTrackerAPI.Controllers
                 Amount = expense.Amount,
                 CategoryId = expense.CategoryId,
                 UserId = expense.UserId,
-                CategoryName = expense.Category.Name
+                CategoryName = expense.Category.Name,
+                CategoryIcon = expense.Category.Icon
             }).ToList();
 
             return Ok(expenseDtos);
@@ -63,7 +64,11 @@ namespace ExpenseTrackerAPI.Controllers
             {
                 Id = expense.Id,
                 Name = expense.Name,
-                Amount = expense.Amount
+                Amount = expense.Amount,
+                CategoryId = expense.CategoryId,
+                UserId = expense.UserId,
+                CategoryName = expense.Category.Name,
+                CategoryIcon = expense.Category.Icon,
             };
             return expenseDto;
         }
@@ -109,17 +114,17 @@ namespace ExpenseTrackerAPI.Controllers
         }
 
 
-        [HttpDelete("{id}")] // need to update to use dto
+        [HttpDelete("{id}")]
         public ActionResult DeleteExpense(int id)
         {
             var expense = _dbContext.Expenses.Find(id);
             if (expense == null)
             {
-                return NotFound();
+                return NotFound(); 
             }
             _dbContext.Expenses.Remove(expense);
             _dbContext.SaveChanges();
-            return Ok(expense);
+            return NoContent();
         }
     }
 }

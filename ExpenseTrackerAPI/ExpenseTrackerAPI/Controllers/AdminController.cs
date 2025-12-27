@@ -38,6 +38,7 @@ namespace ExpenseTrackerAPI.Controllers
                     CategoryId = expense.CategoryId,
                     UserId = expense.UserId,
                     CategoryName = expense.Category.Name,
+                    CategoryIcon = expense.Category.Icon,
                     UserName = expense.User.Name,
                     UserEmail = expense.User.Email
                 };

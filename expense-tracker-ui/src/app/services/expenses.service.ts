@@ -12,6 +12,10 @@ export class ExpenseService {
         return this.http.get<Expense[]>(`${baseApiUrl}/expenses/users/1`); // hardcoded to 1
     }
 
+    public deleteExpense(expenseId: number): Observable<void> {
+        return this.http.delete<void>(`${baseApiUrl}/expenses/${expenseId}`);
+    }
+
     
 }
 

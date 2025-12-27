@@ -5,6 +5,7 @@ export interface UserExpense {
     categoryId: number;
     userId: number;
     categoryName: string;
+    categoryIcon: string;
     userName: string;
     userEmail: string;
 }

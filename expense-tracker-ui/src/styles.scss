@@ -1,5 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+// use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
+body {
+    margin: 0;
+}
+body, p, th, td, .nav-link {
+    font-family: 'Inter', sans-serif;
+}
+
+.navbar-nav {
+    margin: 0;
+}
+
+.container-fluid {
+    padding-left: 12px;
+}
+
+.nav-link.active {
+    font-weight: bold;
+    border-bottom: 2px solid #737373
+}
+
 table {
-    width: 100%;
+    width: 50%;
+    margin-left: 12px;
+    border-collapse: collapse; // removes double borders
 }
 
 th {
@@ -8,10 +33,39 @@ th {
 
 th, td {
     padding: 6px 8px;
-    border: 1px solid #dadada;
+    border: 1px solid #d5d2d2;
 }
 
 p {
     padding-top: 6px;
-    margin-left: 6px;
+    margin-left: 12px;
+}
+
+
+button {
+    padding: 6px 12px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+button.update {
+    background-color: #28a745;
+}
+
+button.update:hover {
+    background-color: #218838;
+}
+
+button.delete {
+    background-color: #dc3545;
+}
+
+button.delete:hover {
+    background-color: #c82333;
+}
+
+.modal-backdrop {
+    background-color: rgba(0,0,0,0.3);
 }

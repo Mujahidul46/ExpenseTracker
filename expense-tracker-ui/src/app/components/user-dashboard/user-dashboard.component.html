@@ -4,15 +4,32 @@
   <thead>
     <th>Name</th>
     <th>Amount</th>
-    <th>Category Name</th>
+    <th>Category</th>
+    <th>Actions</th>
   </thead>
   <tbody>
     @for (expense of expenses; track expense.id) {
       <tr>
         <td>{{expense.name}}</td>
         <td>{{expense.amount}}</td>
-        <td>{{expense.categoryName}}</td>
+        <td>{{expense.categoryName}}[{{expense.categoryIcon}}]</td>
+        <td>
+          <button class="update">Update</button>
+          <button class="delete" (click)="openDeleteModal(expense)">Delete 🗑️</button>
+        </td>
       </tr>
     }
   </tbody>
 </table>
+
+@if (showDeleteModal) {
+  <app-confirmation-modal
+    [confirmationMessage]="'Are you sure you want to delete the &quot;' + expenseToDelete?.name + '&quot; expense?'"
+    (confirmed)="deleteExpense(expenseToDelete!.id)"
+    (cancelled)="closeDeleteModal()">
+  </app-confirmation-modal>
+}
+
+<ngb-toast header="Notification header">
+  Content of the notification
+</ngb-toast>
