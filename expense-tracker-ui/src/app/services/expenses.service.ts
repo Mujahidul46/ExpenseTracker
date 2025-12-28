@@ -14,6 +14,12 @@ export class ExpenseService {
 
     public deleteExpense(expenseId: number): Observable<void> {
         return this.http.delete<void>(`${baseApiUrl}/expenses/${expenseId}`);
+        //return this.http.delete<void>(`${baseApiUrl}/expenses/50032324`); // simulate failure
+
+    }
+
+    public createExpense(expense : Expense) : Observable<Expense> {
+        return this.http.post<Expense>(`${baseApiUrl}/expenses`, expense);
     }
 
     

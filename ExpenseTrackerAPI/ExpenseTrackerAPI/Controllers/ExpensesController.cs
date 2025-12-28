@@ -46,7 +46,8 @@ namespace ExpenseTrackerAPI.Controllers
                 CategoryId = expense.CategoryId,
                 UserId = expense.UserId,
                 CategoryName = expense.Category.Name,
-                CategoryIcon = expense.Category.Icon
+                CategoryIcon = expense.Category.Icon,
+                CreatedAt = expense.CreatedAt
             }).ToList();
 
             return Ok(expenseDtos);
@@ -69,6 +70,7 @@ namespace ExpenseTrackerAPI.Controllers
                 UserId = expense.UserId,
                 CategoryName = expense.Category.Name,
                 CategoryIcon = expense.Category.Icon,
+                CreatedAt = expense.CreatedAt
             };
             return expenseDto;
         }
@@ -79,17 +81,25 @@ namespace ExpenseTrackerAPI.Controllers
             var newExpense = new Expense
             {
                 Name = expense.Name,
-                Amount = expense.Amount ?? 0m
+                Amount = expense.Amount ?? 0m,
+                CategoryId = expense.CategoryId,
+                UserId = expense.UserId
             };
             
             _dbContext.Expenses.Add(newExpense);
             _dbContext.SaveChanges();
 
+            var category = _dbContext.Categories.Find(newExpense.CategoryId);
+
             var expenseDto = new ExpenseDto
             {
                 Id = newExpense.Id,
                 Name = newExpense.Name,
-                Amount = newExpense.Amount
+                Amount = newExpense.Amount,
+                CategoryId = newExpense.CategoryId,
+                UserId = newExpense.UserId,
+                CategoryName = category.Name,
+                CategoryIcon = category.Icon
             };
 
             return CreatedAtAction(nameof(GetExpenseById), // Tells ASP.NET to use the GetExpenseById method to generate the URL

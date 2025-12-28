@@ -9,5 +9,6 @@ namespace ExpenseTrackerAPI.Dtos
         public int UserId { get; set; }
         public string CategoryName { get; set; }
         public string CategoryIcon { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

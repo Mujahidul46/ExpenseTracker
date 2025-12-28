@@ -10,5 +10,11 @@ namespace ExpenseTrackerAPI.Dtos
 
         [Range(typeof(decimal), minimum: "0.00", maximum: "10000000000", ErrorMessage = "Amount cannot be negative.")] // No negative amounts, or greater than 10 billion
         public decimal? Amount { get; set; } // Amount does not have [Required] attribute as user may not know amount yet
+
+        [Required]
+        public int CategoryId { get; set; }
+
+        [Required]
+        public int UserId { get; set; }
     }
 }

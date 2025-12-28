@@ -1,3 +1,6 @@
+<ng-template #successTpl>✅ Expense &quot;{{expenseName}}&quot; deleted successfully!</ng-template>
+<ng-template #failureTpl>✖ Failed to delete &quot;{{expenseName}}&quot; expense. Please try again.</ng-template>
+
 <p>All expenses from database from user 1:</p>
 
 <table>
@@ -16,22 +19,18 @@
         <td>
           <button class="update">Update</button>
           <button class="delete" (click)="openDeleteModal(expense)">Delete 🗑️</button>
-          <button (click)="showToast()">Show toast test</button>
         </td>
       </tr>
     }
   </tbody>
 </table>
 
+<button (click)="openCreateModal()">Create new expense</button>
+
 @if (showDeleteModal) {
   <app-confirmation-modal
     [confirmationMessage]="'Are you sure you want to delete the &quot;' + expenseToDelete?.name + '&quot; expense?'"
-    (confirmed)="deleteExpense(expenseToDelete!.id)"
+    (confirmed)="deleteExpense(expenseToDelete!.id, successTpl, failureTpl)"
     (cancelled)="closeDeleteModal()">
   </app-confirmation-modal>
-}
-
-@if (showToastMsg) {
-  <ngb-toast [animation]="true", (hidden)="showToastMsg = false">Hi this is a toast message</ngb-toast>
-
 }
