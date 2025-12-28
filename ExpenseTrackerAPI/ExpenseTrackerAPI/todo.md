@@ -1,6 +1,10 @@
 Note:
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
+Work on next: 
+Go to this site: https://ng-bootstrap.github.io/#/components/toast/examples
+You need to implement success notification using ng bootstrap library
+
 TO DO:
 - Allow CRUD Operations on frontend
 - Utilise DTOs instead of domain objects in endpoints, e.g. CreateExpenseDto, UpdateExpenseDto

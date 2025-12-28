@@ -18,6 +18,7 @@ export class UserDashboardComponent implements OnInit {
     expenses : Expense[] = [];
     expenseToDelete: Expense | null = null;
     showDeleteModal: boolean = false;
+    showToastMsg : boolean = false;
     
     ngOnInit() {
       this.expenseService.getExpenses(1).subscribe({
@@ -49,5 +50,10 @@ export class UserDashboardComponent implements OnInit {
         },
         error: (err) => console.error('Delete failed', err),
       });
+    }
+
+    showToast() {
+      console.log("Toast called");
+      this.showToastMsg = true;
     }
 }
