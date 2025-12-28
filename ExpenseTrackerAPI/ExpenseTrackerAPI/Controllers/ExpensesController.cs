@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ExpenseTrackerAPI.Models;
 using ExpenseTrackerAPI.Dtos;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace ExpenseTrackerAPI.Controllers
 {
@@ -11,9 +12,13 @@ namespace ExpenseTrackerAPI.Controllers
     public class ExpensesController : ControllerBase
     {
         public readonly ExpenseTrackerContext _dbContext;
-        public ExpensesController(ExpenseTrackerContext dbContext)
+        private readonly IMapper _mapper;
+
+
+        public ExpensesController(ExpenseTrackerContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
         [HttpGet("users/{userId}")]
@@ -24,31 +29,8 @@ namespace ExpenseTrackerAPI.Controllers
                 .Include(expenses => expenses.Category) // if not included, the join doesnt happen and Category is null.
                 .Where(expenses => expenses.UserId == userId)
                 .ToList();
-            //var expenseDtos = new List<ExpenseDto>();
-            //foreach(var expense in expenses)
-            //{
-            //    var expenseDto = new ExpenseDto
-            //    {
-            //        Id = expense.Id,
-            //        Name = expense.Name,
-            //        CategoryId = expense.CategoryId,
-            //        Amount = expense.Amount,
-            //        UserId = expense.UserId
-            //    };
-            //    expenseDtos.Add(expenseDto);
-            //}
 
-            var expenseDtos = expenses.Select(expense => new ExpenseDto
-            {
-                Id = expense.Id,
-                Name = expense.Name,
-                Amount = expense.Amount,
-                CategoryId = expense.CategoryId,
-                UserId = expense.UserId,
-                CategoryName = expense.Category.Name,
-                CategoryIcon = expense.Category.Icon,
-                CreatedAt = expense.CreatedAt
-            }).ToList();
+            var expenseDtos = _mapper.Map<List<ExpenseDto>>(expenses);
 
             return Ok(expenseDtos);
         }
@@ -61,17 +43,7 @@ namespace ExpenseTrackerAPI.Controllers
             {
                 return NotFound();
             }
-            var expenseDto = new ExpenseDto
-            {
-                Id = expense.Id,
-                Name = expense.Name,
-                Amount = expense.Amount,
-                CategoryId = expense.CategoryId,
-                UserId = expense.UserId,
-                CategoryName = expense.Category.Name,
-                CategoryIcon = expense.Category.Icon,
-                CreatedAt = expense.CreatedAt
-            };
+            var expenseDto = _mapper.Map<ExpenseDto>(expense);
             return expenseDto;
         }
 
@@ -89,18 +61,7 @@ namespace ExpenseTrackerAPI.Controllers
             _dbContext.Expenses.Add(newExpense);
             _dbContext.SaveChanges();
 
-            var category = _dbContext.Categories.Find(newExpense.CategoryId);
-
-            var expenseDto = new ExpenseDto
-            {
-                Id = newExpense.Id,
-                Name = newExpense.Name,
-                Amount = newExpense.Amount,
-                CategoryId = newExpense.CategoryId,
-                UserId = newExpense.UserId,
-                CategoryName = category.Name,
-                CategoryIcon = category.Icon
-            };
+            var expenseDto = _mapper.Map<ExpenseDto>(newExpense);
 
             return CreatedAtAction(nameof(GetExpenseById), // Tells ASP.NET to use the GetExpenseById method to generate the URL
                 new { id = expenseDto.Id }, // Supplies the new expense's Id to GetExpenseById method

@@ -1,4 +1,5 @@
 using ExpenseTrackerAPI.Data;
+using ExpenseTrackerAPI.Mappings;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+// Add AutoMapper
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Add CORS
 builder.Services.AddCors(options =>

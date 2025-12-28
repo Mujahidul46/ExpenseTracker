@@ -17,10 +17,20 @@ namespace ExpenseTrackerAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Tell entity framework to use schema
             modelBuilder.Entity<Expense>().ToTable("Expenses", expensesSchema);
             modelBuilder.Entity<Category>().ToTable("Categories", expensesSchema);
             modelBuilder.Entity<User>().ToTable("Users", expensesSchema);
-            // add other tables too
+
+            // Populate CreatedAt and UpdatedAt with current datetime
+            modelBuilder.Entity<Expense>()
+                .Property(e => e.CreatedAt)
+                .HasDefaultValueSql("GETUTCDATE()");
+
+            modelBuilder.Entity<Expense>()
+                .Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("GETUTCDATE()");
+            
         }
     }
 }

@@ -2,6 +2,7 @@ Note:
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 Work on next: 
+- fix create expense bug
 
 TO DO:
 - use automapper
