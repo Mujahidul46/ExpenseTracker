@@ -4,7 +4,6 @@ import { Component, EventEmitter, Input, Output, output } from '@angular/core';
   selector: 'app-confirmation-modal',
   imports: [],
   templateUrl: './confirmation-modal.component.html',
-  styleUrl: './confirmation-modal.component.scss'
 })
 export class ConfirmationModalComponent {
   @Input() confirmationMessage: string = 'Are you sure?'; // default value

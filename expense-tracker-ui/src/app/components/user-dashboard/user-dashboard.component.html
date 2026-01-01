@@ -2,6 +2,8 @@
 <ng-template #failureDeleteTpl>✖ Failed to delete &quot;{{expenseName}}&quot; expense. Please try again.</ng-template>
 <ng-template #successUpdateTpl>✅ Expense updated successfully!</ng-template>
 <ng-template #failureUpdateTpl>✖ Failed to update expense. Please try again.</ng-template>
+<ng-template #successCreateTpl>✅ Expense &quot;{{expenseName}}&quot; created successfully!</ng-template>
+<ng-template #failureCreateTpl>✖ Failed to create expense. Please try again.</ng-template>
 
 <p>All expenses from database from user 1:</p>
 
@@ -19,7 +21,7 @@
         <td>{{expense.amount}}</td>
         <td>{{expense.categoryName}}[{{expense.categoryIcon}}]</td>
         <td>
-          <button class="update" (click)="UpdateExpense(expense, successUpdateTpl, failureUpdateTpl)">Update</button>
+          <button class="update" (click)="updateExpense(expense, successUpdateTpl, failureUpdateTpl)">Update ✏️</button>
           <button class="delete" (click)="openDeleteModal(expense)">Delete 🗑️</button>
         </td>
       </tr>
@@ -27,7 +29,7 @@
   </tbody>
 </table>
 
-<button (click)="openCreateModal()">Create new expense</button>
+<button (click)="createExpense(successCreateTpl, failureCreateTpl)">Create new expense</button>
 
 @if (showDeleteModal) {
   <app-confirmation-modal

@@ -68,22 +68,31 @@ export class UserDashboardComponent implements OnInit {
       }});
     }
 
-    openCreateModal() {
+    createExpense(successTemplate: TemplateRef<any>, failureTemplate: TemplateRef<any>) {
       const modalRef = this.modalService.open(CreateExpenseModalComponent);
 
       modalRef.result.then((expense) => {
         this.expenseService.createExpense(expense).subscribe({
           next: (createdExpense) => {
             this.expenses.push(createdExpense);
+            this.expenseName = createdExpense.name;
+            this.toastService.show({
+              template: successTemplate,
+              classname: 'bg-success text-light'
+            });
           },
           error: (err) => {
             console.error('Create expense failed', err);
+            this.toastService.show({
+              template: failureTemplate,
+              classname: 'bg-danger text-light'
+            });
           }
         });
       });
     }
 
-    UpdateExpense(expense: Expense, successTemplate: TemplateRef<any>, failureTemplate: TemplateRef<any>) {
+    updateExpense(expense: Expense, successTemplate: TemplateRef<any>, failureTemplate: TemplateRef<any>) {
       const modalRef = this.modalService.open(UpdateExpenseModalComponent);
 
       modalRef.componentInstance.expense = {

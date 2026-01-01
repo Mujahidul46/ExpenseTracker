@@ -2,16 +2,13 @@ Note:
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 Work on next: 
-- do update expense frontend
 - fix notifications bug 
-- if no values changed, dont send api call. show notif nothing changed
+- if no values changed in update, dont send api call. show notif nothing changed
 
 
 TO DO:
 - use automapper
 - add created at date for ex.Expenses
-- Allow CRUD Operations on frontend
-- Utilise DTOs instead of domain objects in endpoints, e.g. CreateExpenseDto, UpdateExpenseDto
 - Add pagination
 - for update expense, can have an undo button to revert changes.
 - Add notification toast messages for successfully adding, updating, and deleting expenses
@@ -30,3 +27,5 @@ DONE:
 - Create CRUD Operations on backend
 - add admin UI and separate endpoint and separate admin expense dto potentially
 - Create shared components folder 
+- Allow CRUD Operations on frontend
+- Utilise DTOs instead of domain objects in endpoints, e.g. CreateExpenseDto, UpdateExpenseDto
