@@ -61,6 +61,8 @@ namespace ExpenseTrackerAPI.Controllers
             _dbContext.Expenses.Add(newExpense);
             _dbContext.SaveChanges();
 
+            _dbContext.Entry(newExpense).Reference(e => e.Category).Load();
+
             var expenseDto = _mapper.Map<ExpenseDto>(newExpense);
 
             return CreatedAtAction(nameof(GetExpenseById), // Tells ASP.NET to use the GetExpenseById method to generate the URL
