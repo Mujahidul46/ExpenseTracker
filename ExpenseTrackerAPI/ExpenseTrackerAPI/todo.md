@@ -2,7 +2,10 @@ Note:
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 Work on next: 
-- fix create expense bug
+- do update expense frontend
+- fix notifications bug 
+- if no values changed, dont send api call. show notif nothing changed
+
 
 TO DO:
 - use automapper
@@ -15,7 +18,8 @@ TO DO:
 - add end of week/month recaps
 - add user settings where they can choose custom emojis for categories, revert confirmation popup settings
 - add authetnciation, login, signup etc
-
+- export to pdf/excel
+- powerbi dashboard style ui 
 
 Cool features to implement:
 - Add a category called "Subscription" for recurring payments. Create a screen where user can see all subscriptions displayed with a cool visualisation. Each subscription is a rectangle, the bigger the rectangle, the more expensive the subscription.

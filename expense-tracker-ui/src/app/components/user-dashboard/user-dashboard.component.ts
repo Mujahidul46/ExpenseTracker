@@ -5,8 +5,9 @@ import { ConfirmationModalComponent } from '../../shared/confirmation-modal/conf
 import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../../services/toast-service';
 import { ToastsContainer } from '../../shared/toasts-container/toasts-container';
-import { InputModalComponent } from '../../shared/input-modals/create-expense-modal';
+import { CreateExpenseModalComponent } from '../../shared/input-modals/create-expense-modal';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal';
+import { UpdateExpenseModalComponent } from '../../shared/input-modals/update-expense-modal';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -68,7 +69,7 @@ export class UserDashboardComponent implements OnInit {
     }
 
     openCreateModal() {
-      const modalRef = this.modalService.open(InputModalComponent);
+      const modalRef = this.modalService.open(CreateExpenseModalComponent);
 
       modalRef.result.then((expense) => {
         this.expenseService.createExpense(expense).subscribe({
@@ -80,6 +81,37 @@ export class UserDashboardComponent implements OnInit {
           }
         });
       });
-
     }
+
+    UpdateExpense(expense: Expense, successTemplate: TemplateRef<any>, failureTemplate: TemplateRef<any>) {
+      const modalRef = this.modalService.open(UpdateExpenseModalComponent);
+
+      modalRef.componentInstance.expense = {
+        name: expense.name,
+        amount: expense.amount,
+        categoryId: expense.categoryId
+      };
+
+      modalRef.result.then((updatedExpense) => {
+        this.expenseService.updateExpense(expense.id, updatedExpense).subscribe({
+          next: (result) => {
+            const index = this.expenses.findIndex(e => e.id === expense.id);
+            this.expenses[index] = result;
+            this.toastService.show({
+              template: successTemplate,
+              classname:'bg-success text-light'
+            });
+          },
+          error: (err) => {
+            console.error('Update expense failed', err);
+            this.toastService.show({
+              template: failureTemplate,
+              classname:'bg-danger text-light'
+            });
+          }
+        });
+      });
+    }
+
+
   }

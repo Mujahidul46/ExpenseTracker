@@ -3,11 +3,11 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-	selector: 'app-create-expense-modal',
+	selector: 'app-update-expense-modal',
 	imports: [FormsModule],
 	template: `
 		<div class="modal-header">
-			<h4 class="modal-title">Create Expense</h4>
+			<h4 class="modal-title">Update Expense</h4>
 			<button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 		</div>
 		<div class="modal-body">
@@ -35,17 +35,16 @@ import { FormsModule } from '@angular/forms';
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-outline-secondary" (click)="activeModal.dismiss()">Cancel</button>
-			<button class="btn btn-outline-secondary" (click)="activeModal.close(expense)">Create</button>
+			<button class="btn btn-outline-secondary" (click)="activeModal.close(expense)">Update</button>
 		</div>
 	`,
 })
-export class CreateExpenseModalComponent {
+export class UpdateExpenseModalComponent {
 	activeModal = inject(NgbActiveModal);
 
-	expense = {
-		name: '',
-		amount: 0,
-		categoryId: 0,
-		userId: 1,
+	@Input() expense = {
+		name : '', // just default values in case modal opens before input is passed
+		amount : 0,
+		categoryId : 0,
 	}
 }

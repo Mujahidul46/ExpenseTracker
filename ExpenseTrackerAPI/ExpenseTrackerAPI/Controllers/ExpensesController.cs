@@ -70,20 +70,34 @@ namespace ExpenseTrackerAPI.Controllers
                 expenseDto); // The newly created expense object's data so we can see it in the response body
         }
 
-        [HttpPut("{id}")] // need to update to use dto
-        public ActionResult<Expense> UpdateExpense(int id, Expense newExpenseDetails)
+        [HttpPut("{id}")]
+        public ActionResult<ExpenseDto> UpdateExpense(int id, UpdateExpenseDto updateDto)
         {
             var expense = _dbContext.Expenses.Find(id);
             if (expense == null)
             {
                 return NotFound();
             }
-            expense.Name = newExpenseDetails.Name;
-            expense.Amount = newExpenseDetails.Amount;
-
+            if(updateDto.Name == null && updateDto.Amount == null && updateDto.CategoryId == null) {
+                return BadRequest("No fields to update.");
+            }
+            if (updateDto.Name != null) {
+                expense.Name = updateDto.Name;
+            }
+            if (updateDto.Amount != null) {
+                expense.Amount = updateDto.Amount.Value;
+            }
+            if (updateDto.CategoryId != null) {
+                expense.CategoryId = updateDto.CategoryId.Value;
+            }
+            expense.UpdatedAt = DateTime.UtcNow;
             _dbContext.SaveChanges();
 
-            return Ok(expense);
+            _dbContext.Entry(expense).Reference(e => e.Category).Load();
+
+            var expenseDto = _mapper.Map<ExpenseDto>(expense);
+
+            return Ok(expenseDto);
         }
 
 

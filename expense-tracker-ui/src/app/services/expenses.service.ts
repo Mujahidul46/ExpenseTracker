@@ -22,6 +22,8 @@ export class ExpenseService {
         return this.http.post<Expense>(`${baseApiUrl}/expenses`, expense);
     }
 
-    
+    public updateExpense(expenseId: number, expense: Partial<Expense>) : Observable<Expense> {
+        return this.http.put<Expense>(`${baseApiUrl}/expenses/${expenseId}`, expense);
+    }
 }
 

@@ -1,5 +1,7 @@
-<ng-template #successTpl>✅ Expense &quot;{{expenseName}}&quot; deleted successfully!</ng-template>
-<ng-template #failureTpl>✖ Failed to delete &quot;{{expenseName}}&quot; expense. Please try again.</ng-template>
+<ng-template #successDeleteTpl>✅ Expense &quot;{{expenseName}}&quot; deleted successfully!</ng-template> 
+<ng-template #failureDeleteTpl>✖ Failed to delete &quot;{{expenseName}}&quot; expense. Please try again.</ng-template>
+<ng-template #successUpdateTpl>✅ Expense updated successfully!</ng-template>
+<ng-template #failureUpdateTpl>✖ Failed to update expense. Please try again.</ng-template>
 
 <p>All expenses from database from user 1:</p>
 
@@ -17,7 +19,7 @@
         <td>{{expense.amount}}</td>
         <td>{{expense.categoryName}}[{{expense.categoryIcon}}]</td>
         <td>
-          <button class="update">Update</button>
+          <button class="update" (click)="UpdateExpense(expense, successUpdateTpl, failureUpdateTpl)">Update</button>
           <button class="delete" (click)="openDeleteModal(expense)">Delete 🗑️</button>
         </td>
       </tr>
@@ -30,7 +32,7 @@
 @if (showDeleteModal) {
   <app-confirmation-modal
     [confirmationMessage]="'Are you sure you want to delete the &quot;' + expenseToDelete?.name + '&quot; expense?'"
-    (confirmed)="deleteExpense(expenseToDelete!.id, successTpl, failureTpl)"
+    (confirmed)="deleteExpense(expenseToDelete!.id, successDeleteTpl, failureDeleteTpl)"
     (cancelled)="closeDeleteModal()">
   </app-confirmation-modal>
 }
