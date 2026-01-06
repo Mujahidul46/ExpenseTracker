@@ -7,8 +7,8 @@ import { User } from '../../interfaces/User';
 @Component({
   selector: 'app-admin-dashboard',
   imports: [],
-  templateUrl: './admin-dashboard.component.html',
-  styleUrl: './admin-dashboard.component.scss'
+  templateUrl: './admin-dashboard.html',
+  styleUrl: './admin-dashboard.scss'
 })
 export class AdminDashboardComponent implements OnInit {
   constructor (private expenseService : ExpenseService,

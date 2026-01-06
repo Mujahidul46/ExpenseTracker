@@ -12,8 +12,8 @@ import { UpdateExpenseModalComponent } from '../../shared/input-modals/update-ex
 @Component({
   selector: 'app-user-dashboard',
   imports: [ConfirmationModalComponent, NgbToast, ToastsContainer],
-  templateUrl: './user-dashboard.component.html',
-  styleUrl: './user-dashboard.component.scss'
+  templateUrl: './user-dashboard.html',
+  styleUrl: './user-dashboard.scss'
 })
 export class UserDashboardComponent implements OnInit {
   constructor (
