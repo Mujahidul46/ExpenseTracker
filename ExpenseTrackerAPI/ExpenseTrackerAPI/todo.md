@@ -21,7 +21,23 @@ TO DO:
 
 Cool features to implement:
 - Add a category called "Subscription" for recurring payments. Create a screen where user can see all subscriptions displayed with a cool visualisation. Each subscription is a rectangle, the bigger the rectangle, the more expensive the subscription.
-
+- Smart categorisation
+- Monthly budget + warnings
+- Recurring expenses detection
+- Frictionless input. Inline quick add -> £12.50 coffee -> parses into amount + category + name. Massively reduces friction
+- "Where did my money go?" . Biggest category this month. Biggest increase vs last month. Top 3 merchants.
+- Month to month comparison. % increase/decrease per category. 
+- Spending anomalies. Unusually large transactions. Unusual category spend.
+- Financial health score. Score based on budget adherence, savings rate, expense volatility. Explain why the score changed. 
+- Regret tagging. User mark expense as thumbs up (worth it), neutral (meh face), thumbs down (regret). Over time, show stats on regret vs non-regret purchases.
+You regretted 5 purchases at Pret last month (£38).
+- "Invisible money" view. Small-recurring expenses. Sub-£5 purchases. You spent £127 on purchases under £5. Insightful and surprising
+- Time based clustering. Morning/afternoon/evening purchases. Weekday vs weekend. Show patterns in spending behaviour. You spend 2x more after 9pm. Behavioural insights. 
+- Voice input for adding expenses. Can do lots in one go.
+- Reports -> export as pdf, excel etc. Date-locked summaries. 
+- Financial seasons -> Let users label months as "Holiday season", "Wedding season". Insights become fairer and smarter
+- Attach notes to months -> "Moved house" "Started new job". When revisiting old data, context helps understand spending
+- 
 
 
 DONE:
