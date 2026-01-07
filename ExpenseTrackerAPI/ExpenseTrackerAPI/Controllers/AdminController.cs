@@ -39,8 +39,8 @@ namespace ExpenseTrackerAPI.Controllers
                     UserId = expense.UserId,
                     CategoryName = expense.Category.Name,
                     CategoryIcon = expense.Category.Icon,
-                    UserName = expense.User.Name,
-                    UserEmail = expense.User.Email
+                    Username = expense.User.Username,
+                    Email = expense.User.Email
                 };
                 expenseDtos.Add(expenseWithUserDto);
             }
@@ -54,7 +54,7 @@ namespace ExpenseTrackerAPI.Controllers
             var userDtos = await _dbContext.Users.Select(user => new UserDto
             {
                 Id = user.Id,
-                Name = user.Name,
+                Name = user.Username,
                 Email = user.Email,
                 DateOfBirth = user.DateOfBirth,
                 IsAdmin = user.IsAdmin
