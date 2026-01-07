@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+$main-text-colour: #ffffff;
+$background-colour: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+
 // use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 body {
     margin: 0;
+    background: $background-colour;
 }
+
 body, p, th, td, .nav-link {
     font-family: 'Inter', sans-serif;
 }
@@ -27,18 +32,18 @@ table {
     border-collapse: collapse; // removes double borders
 }
 
-th {
-    background-color: #f5f5f5; 
-}
 
 th, td {
     padding: 6px 8px;
-    border: 1px solid #d5d2d2;
+    border: 1px solid #6366f1;
+    background-color: rgba(30, 27, 75, 0.7);
+    color: $main-text-colour;
 }
 
 p {
     padding-top: 6px;
     margin-left: 12px;
+    color: $main-text-colour;
 }
 
 
@@ -48,6 +53,7 @@ button {
     border: none;
     cursor: pointer;
     margin-right: 8px;
+    color: $main-text-colour;
 }
 
 button.update {
