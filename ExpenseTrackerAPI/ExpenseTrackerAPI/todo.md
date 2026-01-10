@@ -2,11 +2,12 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
-❌ authentication (login, signup)
+IN PROGRESS: authentication (login, signup)
 ❌ authorisation (only show admin dashboard if IsAdmin = 1)
 
 
 📋 TO DO:
+❌ add JWT authetnciation, login, signup etc
 ❌ fix notifications bug 
 ❌ if no values changed in update, dont send api call. show notif nothing changed
 ❌ Add pagination
@@ -14,7 +15,6 @@ Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 ❌ Add notification toast messages for successfully adding, updating, and deleting expenses
 ❌ add end of week/month recaps
 ❌ add user settings where they can choose custom emojis for categories, revert confirmation popup settings
-❌ add authetnciation, login, signup etc
 ❌ export to pdf/excel
 ❌ powerbi dashboard style ui 
 
@@ -24,7 +24,8 @@ Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 ❌ Generate monthly develop reports to review achievements
 
 ✨ Cool features to implement:
-❌ Add a category called "Subscription" for recurring payments. Create a screen where user can see all subscriptions displayed with a cool visualisation. Each subscription is a rectangle, the bigger the rectangle, the more expensive the subscription.
+❌ Add weekly/monthly summary of expenses, as a story.
+❌ Pie charts for categories to visualise spending
 ❌ Smart categorisation
 ❌ Monthly budget + warnings
 ❌ Recurring expenses detection
