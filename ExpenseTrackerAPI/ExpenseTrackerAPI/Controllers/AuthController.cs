@@ -48,5 +48,26 @@ namespace ExpenseTrackerAPI.Controllers
 
             return Ok();
         }
+
+        [HttpPost("login")]
+        public async Task<ActionResult> LogIn(LogInDto logInDto)
+        {
+            // check email or username exists in db
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == logInDto.EmailOrUsername || u.Username == logInDto.EmailOrUsername);
+
+            // if email/username not found, return bad request
+            if (user == null)
+            {
+                return Unauthorized("Invalid email/username or password.");
+            }
+
+            // check password given matches the hashed password in db
+            if (!BCrypt.Net.BCrypt.Verify(logInDto.Password, user.PasswordHash))
+            {
+                return Unauthorized("Login failed. Invalid email/username or password.");
+            }
+
+            return Ok("Login successful");
+        }
     }
 }
