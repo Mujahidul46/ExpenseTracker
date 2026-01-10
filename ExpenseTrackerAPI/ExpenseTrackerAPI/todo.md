@@ -20,6 +20,8 @@ Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 💡 Development Ideas:
 ❌ Use azure devops free tier and use azure devops MCP to create stories for all of below on my personal account
+❌ Use playwright mcp for writing acceptance tests
+❌ Generate monthly develop reports to review achievements
 
 ✨ Cool features to implement:
 ❌ Add a category called "Subscription" for recurring payments. Create a screen where user can see all subscriptions displayed with a cool visualisation. Each subscription is a rectangle, the bigger the rectangle, the more expensive the subscription.
