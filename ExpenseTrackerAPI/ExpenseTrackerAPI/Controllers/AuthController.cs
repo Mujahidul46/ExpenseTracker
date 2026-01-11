@@ -3,6 +3,10 @@ using ExpenseTrackerAPI.Dtos;
 using ExpenseTrackerAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace ExpenseTrackerAPI.Controllers
 {
@@ -11,9 +15,12 @@ namespace ExpenseTrackerAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly ExpenseTrackerContext _dbContext;
-        public AuthController(ExpenseTrackerContext dbContext)
+        private readonly IConfiguration _configuration;
+
+        public AuthController(ExpenseTrackerContext dbContext, IConfiguration configuration)
         {
             _dbContext = dbContext;
+            _configuration = configuration;
         }
 
         [HttpPost("signup")]
@@ -67,7 +74,43 @@ namespace ExpenseTrackerAPI.Controllers
                 return Unauthorized("Login failed. Invalid email/username or password.");
             }
 
-            return Ok("Login successful");
+            var token = GenerateJwtToken(user);
+
+            return Ok(new
+            {
+                Token = token,
+                UserId = user.Id,
+                Username = user.Username,
+                IsAdmin = user.IsAdmin
+            });
+        }
+
+        private string GenerateJwtToken(User user) // Meant to be private? Meant to pass in dto?
+        {
+            var jwtSettings = _configuration.GetSection("Jwt");
+
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]));
+            var credentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "User"),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: jwtSettings["Issuer"],
+                audience: jwtSettings["Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(
+                    Convert.ToDouble(jwtSettings["ExpiryInMinutes"])
+                ),
+                signingCredentials: credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token); // this actually returns token, with signature. Signature is made up from header, payload, secret key
         }
     }
 }

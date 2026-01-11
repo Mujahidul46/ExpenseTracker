@@ -22,6 +22,9 @@ IN PROGRESS: authentication (login, signup)
 ❌ Use azure devops free tier and use azure devops MCP to create stories for all of below on my personal account
 ❌ Use playwright mcp for writing acceptance tests
 ❌ Generate monthly develop reports to review achievements
+❌ Instead of storing secret using user secrets (local), use azure key vault and add there.
+❌ Write basic tests for auth controller
+❌ Make commits trigger a pipeline which automatically runs tests
 
 ✨ Cool features to implement:
 ❌ Add weekly/monthly summary of expenses, as a story.
