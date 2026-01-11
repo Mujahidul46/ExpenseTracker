@@ -19,6 +19,7 @@ IN PROGRESS: authentication (login, signup)
 ❌ powerbi dashboard style ui 
 
 💡 Development Ideas:
+❌ learn git add p
 ❌ Use azure devops free tier and use azure devops MCP to create stories for all of below on my personal account
 ❌ Use playwright mcp for writing acceptance tests
 ❌ Generate monthly develop reports to review achievements
