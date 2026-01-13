@@ -1,0 +1,11 @@
+{
+  "servers": {
+    "azure-devops": {
+      "command": "npx",
+      "args": ["-y", "@azure-devops/mcp", "mujahidul1029388589", "-a", "envvar"],
+      "env": {
+        "ADO_MCP_AUTH_TOKEN": "${env:AZURE_DEVOPS_PAT}"
+      }
+    }
+  }
+}
