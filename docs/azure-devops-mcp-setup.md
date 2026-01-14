@@ -100,6 +100,7 @@ Your project's available work item types depend on the process template:
 - Check environment variable is set: `echo $env:AZURE_DEVOPS_PAT` in terminal
 - Restart VS Code after setting environment variable
 - Check MCP status: `Ctrl + Shift + P` → "MCP: List Servers"
+- Make sure AGENT mode is chosen
 
 ### npm authentication error
 - Ensure `.npmrc` file exists in your repo with `registry=https://registry.npmjs.org/`
@@ -129,6 +130,9 @@ Your project's available work item types depend on the process template:
 
 ---
 
-## Questions?
+## How to run
 
-Contact: [Your name/team]
+Press Ctrl + Shift + P
+Type "MCP: List Servers"
+Click on azure-devops
+Look for an option to enable tools
