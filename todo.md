@@ -17,6 +17,7 @@ IN PROGRESS: authentication (login, signup)
 ❌ add user settings where they can choose custom emojis for categories, revert confirmation popup settings
 ❌ export to pdf/excel
 ❌ powerbi dashboard style ui 
+❌ Create repository layer which talks to db
 
 💡 Development Ideas:
 ❌ learn git add p
