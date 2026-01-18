@@ -14,8 +14,8 @@
         <td>{{expense.name}}</td>
         <td>{{expense.amount}}</td>
         <td>{{expense.categoryName}}[{{expense.categoryIcon}}]</td>
-        <td>{{expense.userName}}</td>
-        <td>{{expense.userEmail}}</td>
+        <td>{{expense.username}}</td>
+        <td>{{expense.email}}</td>
       </tr>
     }
   </tbody>
@@ -24,7 +24,7 @@
 <p>This is a list of all the users in the system.</p>
 <table>
   <thead>
-    <th>Name</th>
+    <th>Username</th>
     <th>Email</th>
     <th>Date of Birth</th>
     <th>Is user admin?</th>
@@ -32,7 +32,7 @@
 
   @for (user of users; track user.id) {
     <tbody>
-      <td>{{user.name}}</td>
+      <td>{{user.username}}</td>
       <td>{{user.email}}</td>
       <td>{{user.dateOfBirth}}</td>
       <td>{{user.isAdmin ? 'Yes' : 'No'}}</td>

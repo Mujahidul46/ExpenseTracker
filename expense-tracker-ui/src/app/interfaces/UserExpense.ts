@@ -6,6 +6,6 @@ export interface UserExpense {
     userId: number;
     categoryName: string;
     categoryIcon: string;
-    userName: string;
-    userEmail: string;
+    username: string;
+    email: string;
 }

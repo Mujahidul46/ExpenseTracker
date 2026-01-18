@@ -59,8 +59,8 @@ namespace ExpenseTrackerAPI.Controllers
         [HttpPost("login")]
         public async Task<ActionResult> LogIn(LogInDto logInDto)
         {
-            // check email or username exists in db
-            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == logInDto.EmailOrUsername || u.Username == logInDto.EmailOrUsername);
+            // check username exists in db
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == logInDto.Username);
 
             // if email/username not found, return bad request
             if (user == null)

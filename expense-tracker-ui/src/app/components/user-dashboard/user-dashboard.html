@@ -8,29 +8,31 @@
 
 <p>All expenses from database from user 1:</p>
 
-<table>
-  <thead>
-    <th>Name</th>
-    <th>Amount</th>
-    <th>Category</th>
-    <th>Actions</th>
-  </thead>
-  <tbody>
-    @for (expense of expenses; track expense.id) {
-      <tr>
-        <td>{{expense.name}}</td>
-        <td>{{expense.amount}}</td>
-        <td>{{expense.categoryName}}[{{expense.categoryIcon}}]</td>
-        <td>
-          <button class="update" (click)="updateExpense(expense, successUpdateTpl, failureUpdateTpl)">Update ✏️</button>
-          <button class="delete" (click)="openDeleteModal(expense)">Delete 🗑️</button>
-        </td>
-      </tr>
-    }
-  </tbody>
-</table>
+<div class="table-container">
+  <table>
+    <thead>
+      <th>Name</th>
+      <th>Amount</th>
+      <th>Category</th>
+      <th>Actions</th>
+    </thead>
+    <tbody>
+      @for (expense of expenses; track expense.id) {
+        <tr>
+          <td>{{expense.name}}</td>
+          <td>{{expense.amount}}</td>
+          <td>{{expense.categoryName}}[{{expense.categoryIcon}}]</td>
+          <td>
+            <button class="update" (click)="updateExpense(expense, successUpdateTpl, failureUpdateTpl)">Update ✏️</button>
+            <button class="delete" (click)="openDeleteModal(expense)">Delete 🗑️</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <button class="createExpenseBtn" (click)="createExpense(successCreateTpl, failureCreateTpl)">Create new expense</button>
+</div>
 
-<button (click)="createExpense(successCreateTpl, failureCreateTpl)">Create new expense</button>
 
 @if (showDeleteModal) {
   <app-confirmation-modal

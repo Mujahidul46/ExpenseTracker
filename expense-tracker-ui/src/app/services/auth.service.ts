@@ -5,7 +5,9 @@ import { Observable, tap } from "rxjs";
 import { LoginRequest } from "../interfaces/LoginRequest";
 import { LoginResponse } from "../interfaces/LoginResponse";
 import { SignUpRequest } from "../interfaces/SignUpRequest";
+import { Injectable } from "@angular/core";
 
+@Injectable({providedIn: 'root'})
 export class AuthService {
     constructor (private http: HttpClient) {
 

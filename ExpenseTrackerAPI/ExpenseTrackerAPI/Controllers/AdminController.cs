@@ -54,7 +54,7 @@ namespace ExpenseTrackerAPI.Controllers
             var userDtos = await _dbContext.Users.Select(user => new UserDto
             {
                 Id = user.Id,
-                Name = user.Username,
+                Username = user.Username,
                 Email = user.Email,
                 DateOfBirth = user.DateOfBirth,
                 IsAdmin = user.IsAdmin
