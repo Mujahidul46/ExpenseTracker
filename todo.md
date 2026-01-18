@@ -7,7 +7,6 @@ IN PROGRESS: authentication (login, signup)
 
 
 📋 TO DO:
-❌ add toast for signup success
 ❌ add JWT authetnciation, login, signup etc
 ❌ fix notifications bug 
 ❌ if no values changed in update, dont send api call. show notif nothing changed
@@ -59,6 +58,7 @@ You regretted 5 purchases at Pret last month (£38).
 ✅ use automapper
 ✅ add created at date for ex.Expenses
 ✅ rename components to use angular19+ version (e.g. remove .component. from home.component.html)
+✅ add toast for signup success
 
 this is a test to see if I can commit from phone
 
