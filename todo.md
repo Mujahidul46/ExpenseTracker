@@ -29,6 +29,8 @@ IN PROGRESS: authentication (login, signup)
 ❌ Make commits trigger a pipeline which automatically runs tests
 
 ✨ Cool features to implement:
+❌ Dashboard with cards
+❌ Paste bank transaction parser
 ❌ Add weekly/monthly summary of expenses, as a story.
 ❌ Pie charts for categories to visualise spending
 ❌ Smart categorisation
