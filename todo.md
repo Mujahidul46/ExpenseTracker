@@ -7,6 +7,7 @@ IN PROGRESS: authentication (login, signup)
 
 
 📋 TO DO:
+❌ add toast for signup success
 ❌ add JWT authetnciation, login, signup etc
 ❌ fix notifications bug 
 ❌ if no values changed in update, dont send api call. show notif nothing changed
