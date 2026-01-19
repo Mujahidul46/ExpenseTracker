@@ -4,11 +4,13 @@ using ExpenseTrackerAPI.Models;
 using ExpenseTrackerAPI.Dtos;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExpenseTrackerAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class ExpensesController : ControllerBase
     {
         public readonly ExpenseTrackerContext _dbContext;

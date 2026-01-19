@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ToastsContainer } from './shared/toasts-container/toasts-container';
+import { AuthService } from './services/auth.service';
 
 
 @Component({
@@ -9,5 +10,16 @@ import { ToastsContainer } from './shared/toasts-container/toasts-container';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent { 
+export class AppComponent {
+  constructor (
+    private authService: AuthService,
+    private router: Router
+  ) {
+
+  }
+
+  logout() {
+    this.authService.LogOut();
+    this.router.navigate(['/login']);
+  }
 }

@@ -1,5 +1,6 @@
 ﻿using ExpenseTrackerAPI.Data;
 using ExpenseTrackerAPI.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ namespace ExpenseTrackerAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class AdminController : ControllerBase
     {
         public readonly ExpenseTrackerContext _dbContext;
