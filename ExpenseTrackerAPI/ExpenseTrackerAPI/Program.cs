@@ -21,7 +21,8 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins("http://localhost:4200")
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .WithExposedHeaders("New-Auth-Token");
     });
 });
 
@@ -97,6 +98,49 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors("AllowAngular");
 app.UseAuthentication();
+
+app.Use(async (context, next) =>
+{
+    await next();
+
+    // After request is processed, refresh token if authenticated
+    if (context.User.Identity?.IsAuthenticated == true)
+    {
+        var userId = context.User.FindFirst(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub)?.Value;
+        var email = context.User.FindFirst(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Email)?.Value;
+        var username = context.User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
+        var role = context.User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+        
+        // Generate new token with fresh expiration
+        var jwtSettings = builder.Configuration.GetSection("Jwt");
+        var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]));
+        var credentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+        
+        var claims = new[]
+        {
+            new System.Security.Claims.Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub, userId),
+            new System.Security.Claims.Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Email, email),
+            new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Name, username),
+            new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Role, role),
+            new System.Security.Claims.Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        };
+
+        var token = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(
+            issuer: jwtSettings["Issuer"],
+            audience: jwtSettings["Audience"],
+            claims: claims,
+            expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(jwtSettings["ExpiryInMinutes"])),
+            signingCredentials: credentials
+        );
+
+        var newToken = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler().WriteToken(token);
+        
+        context.Response.Headers.Append("New-Auth-Token", newToken);
+    }
+});
+
+
+
 app.UseAuthorization();
 
 app.MapControllers();

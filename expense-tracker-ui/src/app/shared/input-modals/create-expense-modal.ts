@@ -46,6 +46,6 @@ export class CreateExpenseModalComponent {
 		name: '',
 		amount: 0,
 		categoryId: 0,
-		userId: 1,
+		userId: Number(localStorage.getItem('userId')),
 	}
 }

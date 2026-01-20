@@ -28,9 +28,10 @@ export class UserDashboardComponent implements OnInit {
     expenseName: string = '';
     showDeleteModal: boolean = false;
     showToastMsg : boolean = false;
+    userId = Number(localStorage.getItem('userId'));
     
     ngOnInit() {
-      this.expenseService.getExpenses(1).subscribe({
+      this.expenseService.getExpenses(this.userId).subscribe({
         next: (data) => this.expenses = data,
         error: (err) => console.error(err),
       });

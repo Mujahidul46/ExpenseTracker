@@ -9,7 +9,7 @@ export class ExpenseService {
     constructor(private http: HttpClient) {}
 
     public getExpenses(userId: number): Observable<Expense[]> {
-        return this.http.get<Expense[]>(`${baseApiUrl}/expenses/users/1`); // hardcoded to 1
+        return this.http.get<Expense[]>(`${baseApiUrl}/expenses/users/${userId}`);
     }
 
     public deleteExpense(expenseId: number): Observable<void> {

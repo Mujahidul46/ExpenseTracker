@@ -3,6 +3,9 @@ Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
 IN PROGRESS: authentication (login, signup)
+REMINDER:
+//middleware added 102-140 and in authinterceptor. current state of app is adding expense works, but failure notif shows.
+also need to test if refresh token works
 ❌ authorisation (only show admin dashboard if IsAdmin = 1)
 
 
@@ -18,6 +21,8 @@ IN PROGRESS: authentication (login, signup)
 ❌ export to pdf/excel
 ❌ powerbi dashboard style ui 
 ❌ Create repository layer which talks to db
+❌ add middleware which refreshes token on every api request so user never redirected to login if they are using app. only way they redirected is if inactive ( no http requests ) for 60 mins
+
 
 💡 Development Ideas:
 ❌ learn git add p
@@ -48,6 +53,9 @@ You regretted 5 purchases at Pret last month (£38).
 ❌ Reports -> export as pdf, excel etc. Date-locked summaries. 
 ❌ Financial seasons -> Let users label months as "Holiday season", "Wedding season". Insights become fairer and smarter
 ❌ Attach notes to months -> "Moved house" "Started new job". When revisiting old data, context helps understand spending
+
+LEARNING:
+- learnt what CORS is
 
 ✅ DONE:
 ✅ Create CRUD Operations on backend
