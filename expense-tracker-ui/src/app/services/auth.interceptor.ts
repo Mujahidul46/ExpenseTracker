@@ -16,23 +16,7 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
                 Authorization: `Bearer ${token}`
             }
         });
-        return next(clonedRequest).pipe(
-            tap(event => {
-                if (event instanceof HttpResponse) {
-                    const refreshedToken = event.headers.get('New-Auth-Token');
-                    if (refreshedToken) {
-                        localStorage.setItem('authToken', refreshedToken);
-                    }
-                }
-            }),
-            catchError(error => {
-                if (error.status === 401) { // token expired
-                    authService.LogOut();
-                    router.navigate(['/login']);
-                }
-                return throwError(() => error);
-            })
-        );
+        return next(clonedRequest);
     }
 
     return next(request);
