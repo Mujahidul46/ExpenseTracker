@@ -2,11 +2,10 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
-❌ authorisation (only show admin dashboard if IsAdmin = 1)
+Write basic tests for auth controller
 
 
 📋 TO DO:
-❌ add JWT authetnciation, login, signup etc
 ❌ fix notifications bug 
 ❌ if no values changed in update, dont send api call. show notif nothing changed
 ❌ Add pagination
@@ -26,7 +25,6 @@ Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 ❌ Use playwright mcp for writing acceptance tests
 ❌ Generate monthly develop reports to review achievements
 ❌ Instead of storing secret using user secrets (local), use azure key vault and add there.
-❌ Write basic tests for auth controller
 ❌ Make commits trigger a pipeline which automatically runs tests
 
 ✨ Cool features to implement:
@@ -54,6 +52,8 @@ LEARNING:
 - learnt what CORS is
 - confusing methods, add bunch of comments. use feynam technique. rewrite it until its perfect.
 
+
+
 ✅ DONE:
 ✅ Create CRUD Operations on backend
 ✅ add admin UI and separate endpoint and separate admin expense dto potentially
@@ -64,8 +64,21 @@ LEARNING:
 ✅ add created at date for ex.Expenses
 ✅ rename components to use angular19+ version (e.g. remove .component. from home.component.html)
 ✅ add toast for signup success
+✅ add JWT authetnciation, login, signup etc
 
 this is a test to see if I can commit from phone
 
 
 test 
+
+
+Learning notes:
+
+- unit tests: call controller methods directly. Test business logic in isolation. Very fast. Write lots, and cover all edge-cases.
+var controller = new AuthController(db, config);
+var response = await controller.SignUp(dto); // Direct method call
+
+- integration tests: test full HTTP pipeline (request → routing → validation → controller → response). Slower than unit tests, so write fewer - only for critical paths.
+Integration tests test that all the pieces work together correctly.
+var client = new HttpClient();
+var response = await client.PostAsync("/auth/signup", jsonContent); // Real HTTP request
