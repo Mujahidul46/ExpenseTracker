@@ -40,6 +40,7 @@ namespace ExpenseTrackerAPI.Tests
         #region Signup Tests
         // This test is if user enters valid credentials (username, email, password), then the signup should be successful
         [Fact]
+            // this is integration test actually cos it uses in memory db, unit test only meant to mock db. 
         public async Task SignUp_WithValidData_ReturnsOk()
         {
             // Arrange
