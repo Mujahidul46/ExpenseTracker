@@ -15,7 +15,7 @@ export class AuthService {
 
     // /auth/login
     // store the token in local storage
-    public LogIn(loginDetails: LoginRequest): Observable<LoginResponse> {
+    public logIn(loginDetails: LoginRequest): Observable<LoginResponse> {
         return this.http.post<LoginResponse>(`${baseApiUrl}/auth/login`, loginDetails)
         .pipe(
             tap(response => {
@@ -29,15 +29,23 @@ export class AuthService {
 
     // /auth/signup
     // username, email , password
-    public SignUp(signUpDetails: SignUpRequest) : Observable<void> { // learning point: without observable you cant see if the response succeeded or failed
+    public signUp(signUpDetails: SignUpRequest) : Observable<void> { // learning point: without observable you cant see if the response succeeded or failed
         return this.http.post<void>(`${baseApiUrl}/auth/signup`, signUpDetails);
     }
 
-    public LogOut(): void {
+    public logOut(): void {
         // remove token from local storage
         localStorage.removeItem('authToken');
         localStorage.removeItem('userId');
         localStorage.removeItem('username');
         localStorage.removeItem('isAdmin');
+    }
+
+    public isAdmin(): boolean {
+        return localStorage.getItem('isAdmin') === "true";
+    }
+
+    public isLoggedIn(): boolean {
+        return !!localStorage.getItem('authToken');
     }
 }

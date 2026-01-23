@@ -38,7 +38,7 @@ export class Signup {
       alert('Passwords do not match. Please try again.');
       return;
     }
-    this.authService.SignUp(signupDetails).subscribe({
+    this.authService.signUp(signupDetails).subscribe({
       next: () => {
         this.router.navigate(['/login']);
         this.toastService.show({

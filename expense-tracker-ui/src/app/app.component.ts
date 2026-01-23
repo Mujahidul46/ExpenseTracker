@@ -20,11 +20,15 @@ export class AppComponent {
   }
 
   logout() {
-    this.authService.LogOut();
+    this.authService.logOut();
     this.router.navigate(['/login']);
   }
 
   isAdmin(): boolean{
-    return localStorage.getItem('isAdmin') === "true";
+    return this.authService.isAdmin();
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
   }
 }

@@ -26,7 +26,7 @@ export class Login {
         username: this.username,
         password: this.password
       }
-      this.authService.LogIn(loginDetails).subscribe({
+      this.authService.logIn(loginDetails).subscribe({
         next: (response) => {
           console.log('Login successful', response);
           this.router.navigate(['/user-dashboard']);
