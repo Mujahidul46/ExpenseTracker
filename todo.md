@@ -13,6 +13,7 @@ Write basic tests for auth controller
 
 
 📋 TO DO:
+❌ instead of form for create/update expense inline it so user doesn't need to move eyes. think of better ux
 ❌ fix notifications bug 
 ❌ if no values changed in update, dont send api call. show notif nothing changed
 ❌ Add pagination
