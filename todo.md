@@ -2,7 +2,14 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
+Smart categorisation
+- store api key in user secrets (delete it from env.ts)
+- create endpoint for retreiving category suggestion
+- add method to expense service to call backend
+- 
+expense-tracker-categorisation
 Write basic tests for auth controller
+
 
 
 📋 TO DO:
@@ -20,6 +27,7 @@ Write basic tests for auth controller
 
 
 💡 Development Ideas:
+❌ Smart categorisation
 ❌ learn git add p
 ❌ Use azure devops free tier and use azure devops MCP to create stories for all of below on my personal account
 ❌ Use playwright mcp for writing acceptance tests
@@ -32,7 +40,6 @@ Write basic tests for auth controller
 ❌ Paste bank transaction parser
 ❌ Add weekly/monthly summary of expenses, as a story.
 ❌ Pie charts for categories to visualise spending
-❌ Smart categorisation
 ❌ Monthly budget + warnings
 ❌ Recurring expenses detection
 ❌ Frictionless input. Inline quick add -> £12.50 coffee -> parses into amount + category + name. Massively reduces friction
@@ -82,3 +89,9 @@ var response = await controller.SignUp(dto); // Direct method call
 Integration tests test that all the pieces work together correctly.
 var client = new HttpClient();
 var response = await client.PostAsync("/auth/signup", jsonContent); // Real HTTP request
+
+
+####### setup instructions #####
+
+- need hugging face api key for smart categorisation
+- need jwt token for auth
