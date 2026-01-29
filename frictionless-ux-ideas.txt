@@ -1,0 +1,37 @@
+🚀 FRICTIONLESS EXPENSE INPUT IDEAS
+====================================
+
+1. Natural Language Quick Add
+   - Type: "£12.50 coffee starbucks" → auto-parses amount, category, name
+   - Zero friction, one line, done
+
+2. Inline Table Editing
+   - Click any cell → edit in place, no popups
+   - Eyes never leave the table
+
+3. Smart Autocomplete
+   - Type "st..." → suggests "Starbucks coffee - £4.50 - Food"
+   - Learns from your history
+
+4. Quick Add Bar (Always Visible) put lightning emoji :)
+   - Fixed input at top of screen
+   - Press Enter → instant add → auto-clears for next
+
+5. Bulk Paste Parser ⭐
+   Example:
+   Paste unstructured text:
+   "bought coffee 4.50
+   uber home 12
+   tesco shopping 45.67"
+   
+   → Auto-creates 3 expenses
+   → AI suggests categories
+   → Review/confirm in one click. nice
+   
+   - Dump everything at once
+   - Parse multiple expenses from messy text
+   - Perfect for end-of-day batch entry
+
+6. Smart Bank Statement Paste
+   - Paste from bank app → auto-detects date/amount/merchant
+   - Instant bulk import

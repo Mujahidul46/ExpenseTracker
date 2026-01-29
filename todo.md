@@ -3,6 +3,7 @@ Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
 smart categorisation frontend (api works)
+see frictionless-ux-ideas.txt
 
 
 
