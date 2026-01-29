@@ -23,6 +23,7 @@
    "bought coffee 4.50
    uber home 12
    tesco shopping 45.67"
+Make it show the ouput as user types it in for immediate feedback (one-by-one, not all at end)
    
    → Auto-creates 3 expenses
    → AI suggests categories
