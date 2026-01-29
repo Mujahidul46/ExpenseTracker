@@ -2,17 +2,12 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
-Smart categorisation
-- store api key in user secrets (delete it from env.ts)
-- create endpoint for retreiving category suggestion
-- add method to expense service to call backend
-- 
-expense-tracker-categorisation
-Write basic tests for auth controller
+smart categorisation frontend (api works)
 
 
 
 📋 TO DO:
+❌ make swagger authorize button automatically pass jwt token instead of manual
 ❌ instead of form for create/update expense inline it so user doesn't need to move eyes. think of better ux
 ❌ fix notifications bug 
 ❌ if no values changed in update, dont send api call. show notif nothing changed

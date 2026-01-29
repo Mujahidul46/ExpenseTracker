@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ExpenseTrackerAPI.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
+using System.Text.Json;
 
 namespace ExpenseTrackerAPI.Controllers
 {
@@ -11,28 +14,68 @@ namespace ExpenseTrackerAPI.Controllers
     public class AiController : Controller
     {
         private readonly IConfiguration _configuration;
-        public AiController(IConfiguration configuration)
+        private readonly IHttpClientFactory _httpClientFactory;
+        public AiController(IConfiguration configuration, IHttpClientFactory httpClientFactory)
         {
             _configuration = configuration;
+            _httpClientFactory = httpClientFactory;
         }
 
         [HttpPost("suggest-category")]
         // TODO: implement AI category suggestion logic
-        // https://huggingface.co/facebook/bart-large-mnli
-        // 30000 tokens max (free tier)
+        // URL!!!! https://huggingface.co/facebook/bart-large-mnli !!!!!!!
+        // 1000 requests per 5 mins
+        // rate limits: https://huggingface.co/docs/hub/rate-limits#rate-limit-tiers
+        // inputs/outputs: https://huggingface.co/docs/inference-providers/tasks/zero-shot-classification
 
-        public async ActionResult GetSuggestedCategory(string expenseName, List<string> categories) {
-            // call the hugging face API and pass it the expense name, and the list of categories.
-            // Also in API request need to attach token, which is stored in my user secrets "HuggingFace:ApiKey": "secretvalueishere"
-            string apiUrl = "https://router.huggingface.co/hf-inference/models/facebook/bart-large-mnli";
-            string token = _configuration["HuggingFace:ApiKey"];
+        public async Task<ActionResult<string>> GetSuggestedCategory([FromBody] SuggestCategoryRequestDto request) {
+            try
+            {
+                string apiUrl = "https://router.huggingface.co/hf-inference/models/facebook/bart-large-mnli";
+                string token = _configuration["HuggingFace:ApiKey"];
+                if (string.IsNullOrEmpty(token))
+                {
+                    return StatusCode(500, "Issue with Hugging Face API token");
+                }
 
-            // Store result of the API response
+                var payload = new
+                {
+                    inputs = request.ExpenseName,
+                    parameters = new
+                    {
+                        candidate_labels = request.Categories
+                    }
+                };
 
-            // if success, return Ok(suggestedCategory);
+                var client = _httpClientFactory.CreateClient();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-            // If error, return StatusCode(500, "Error suggesting category");
+                var jsonContent = JsonSerializer.Serialize(payload);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync(apiUrl, content);
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    return StatusCode((int)response.StatusCode, $"Hugging face API call gave error: {errorMessage}");
+                }
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("Hugging Face response: " + responseContent);
+                var results = JsonSerializer.Deserialize<List<HuggingFaceResponseDto>>(responseContent);
+
+                string suggestedCategory = results?[0].label ?? "Unknown";
+                return Ok(new
+                {
+                    suggestedCategory = suggestedCategory,
+                    confidence = results?[0].score ?? 0.0
+                });
+
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, $"Error suggesting category {ex.Message}");
+            }
         }
-
     }
 }
