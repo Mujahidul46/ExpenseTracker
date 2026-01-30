@@ -9,7 +9,7 @@ namespace ExpenseTrackerAPI.Controllers
 
     
     [ApiController]
-    [Route("controller")]
+    [Route("[controller]")]
     [Authorize]
     public class AiController : Controller
     {

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Expense } from '../../interfaces/Expense';
 import { ExpenseService } from '../../services/expenses.service';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
@@ -8,6 +8,9 @@ import { ToastsContainer } from '../../shared/toasts-container/toasts-container'
 import { CreateExpenseModalComponent } from '../../shared/input-modals/create-expense-modal';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal';
 import { UpdateExpenseModalComponent } from '../../shared/input-modals/update-expense-modal';
+import { AuthService } from '../../services/auth.service';
+import { AiService } from '../../services/ai.service';
+import { CATEGORY_MAP, CATEGORY_NAMES } from '../constants/categories';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -19,6 +22,8 @@ export class UserDashboardComponent implements OnInit {
   constructor (
     private expenseService : ExpenseService,
     private toastService : ToastService,
+    private authService : AuthService,
+    private aiService: AiService,
     private modalService : NgbModal)
   {
   };
@@ -28,9 +33,12 @@ export class UserDashboardComponent implements OnInit {
     expenseName: string = '';
     showDeleteModal: boolean = false;
     showToastMsg : boolean = false;
-    userId = Number(localStorage.getItem('userId'));
+    userId! : number;
+
+    @ViewChild('quickInput') quickInputElement!: ElementRef;
     
     ngOnInit() {
+      this.userId = this.authService.getCurrentUserId();
       this.expenseService.getExpenses(this.userId).subscribe({
         next: (data) => this.expenses = data,
         error: (err) => console.error(err),
@@ -123,5 +131,49 @@ export class UserDashboardComponent implements OnInit {
       });
     }
 
+    parseUserInput(event: any) {
+      const input = event.target.value.trim();
+      const amountMatch = input.match(/\d+\.?\d*/);
+      const amountAsNumber = amountMatch ? parseFloat(amountMatch[0]) : 0;
+      console.log('Parsed Amount:', amountAsNumber);
+      const expenseName = input.replace(/\d+\.?\d*/, '')
+                          .replaceAll(/[£$€]/g, '')
+                          .trim();
+      console.log('Parsed Name:', expenseName);
+      this.createExpenseFromQuickAdd(expenseName, amountAsNumber);
+    }
 
+    createExpenseFromQuickAdd(expenseName: string, amount: number) {
+      this.aiService.getSugggestedCategory(expenseName, CATEGORY_NAMES)
+        .subscribe({
+          next: (response) => {
+            const categoryName = response.suggestedCategory || 'Other';
+            const categoryId = CATEGORY_MAP[categoryName as keyof typeof CATEGORY_MAP];
+            console.log(`AI Suggested Category: ${categoryName} with confidence ${response.confidence}`);
+
+            const expense: Expense = {
+              name: expenseName,
+              amount: amount,
+              categoryId: categoryId,
+              userId: this.userId,
+            } as Expense;
+
+            this.expenseService.createExpense(expense).subscribe({
+              next: (createdExpense) => {
+                this.expenses.push(createdExpense);
+                this.expenseName = createdExpense.name;
+                this.quickInputElement.nativeElement.value = '';
+              },
+              error: (err) => {
+                console.error('Create expense failed', err);
+                
+              }
+            });
+
+          },
+          error: (err) => {
+            console.error(`Error suggesting category: ${err}`);
+          }
+      });
+    }
   }

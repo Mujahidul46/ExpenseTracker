@@ -7,3 +7,14 @@
 .createExpenseBtn{
     background-color: #28a745;
 }
+
+.quick-input-container {
+    padding: 8px 12px;
+
+    .quick-input {
+        border-radius: 15px;
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        width: 50%;
+    }
+}

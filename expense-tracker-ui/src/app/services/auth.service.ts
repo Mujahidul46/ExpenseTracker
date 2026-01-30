@@ -48,4 +48,8 @@ export class AuthService {
     public isLoggedIn(): boolean {
         return !!localStorage.getItem('authToken');
     }
+
+    public getCurrentUserId(): number {
+        return Number(localStorage.getItem('userId'));
+    }
 }

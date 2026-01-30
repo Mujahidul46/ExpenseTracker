@@ -2,12 +2,15 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
-smart categorisation frontend (api works)
+quick input works but make it faster, whilst we wait for ai we can put placeholder. otherwise user has to stop typing! do ai in batch?
+probs need to block updating expense whilst it calculates
+
 see frictionless-ux-ideas.txt
 
 
 
 📋 TO DO:
+❌ show user name on navbar
 ❌ make swagger authorize button automatically pass jwt token instead of manual
 ❌ instead of form for create/update expense inline it so user doesn't need to move eyes. think of better ux
 ❌ fix notifications bug 
@@ -24,6 +27,7 @@ see frictionless-ux-ideas.txt
 
 
 💡 Development Ideas:
+❌ Be less dependent on notifications, instead highlight newly added changes momentarily. dont break flow
 ❌ Smart categorisation
 ❌ learn git add p
 ❌ Use azure devops free tier and use azure devops MCP to create stories for all of below on my personal account

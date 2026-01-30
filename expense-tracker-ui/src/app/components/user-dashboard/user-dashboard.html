@@ -8,6 +8,11 @@
 
 <p>All expenses from database from current user:</p>
 
+<div class="quick-input-container">
+  <input type="text" class="quick-input" placeholder="⚡ Add expense super fast!" (keyup.enter)="parseUserInput($event)" #quickInput>
+
+</div>
+
 <div class="table-container">
   <table>
     <thead>
