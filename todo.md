@@ -55,6 +55,7 @@ You regretted 5 purchases at Pret last month (£38).
 ❌ Reports -> export as pdf, excel etc. Date-locked summaries. 
 ❌ Financial seasons -> Let users label months as "Holiday season", "Wedding season". Insights become fairer and smarter
 ❌ Attach notes to months -> "Moved house" "Started new job". When revisiting old data, context helps understand spending
+❌ natural language queries -> how much did i spend on food last month
 
 LEARNING:
 - learnt what CORS is
