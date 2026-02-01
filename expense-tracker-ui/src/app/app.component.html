@@ -19,9 +19,11 @@
           <a class="nav-link" routerLink="/admin-dashboard" routerLinkActive="active">Admin Dashboard</a>
         </li>
       }
-      <li class="nav-item">
-        <a class="nav-link" (click)="logout()" style="cursor: pointer;">Logout</a>
-      </li>
+      @if (isLoggedIn()) {
+        <li class="nav-item">
+          <a class="nav-link" (click)="logout()" style="cursor: pointer;">Logout</a>
+        </li>
+      }
     </ul>
   </div>
 </nav>

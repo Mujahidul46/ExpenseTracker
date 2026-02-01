@@ -2,6 +2,7 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
+migrate categories
 quick input works but make it faster, whilst we wait for ai we can put placeholder. otherwise user has to stop typing! do ai in batch?
 probs need to block updating expense whilst it calculates
 
@@ -10,6 +11,7 @@ see frictionless-ux-ideas.txt
 
 
 📋 TO DO:
+❌ Money IN section
 ❌ show user name on navbar
 ❌ make swagger authorize button automatically pass jwt token instead of manual
 ❌ instead of form for create/update expense inline it so user doesn't need to move eyes. think of better ux

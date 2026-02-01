@@ -36,3 +36,5 @@ Make it show the ouput as user types it in for immediate feedback (one-by-one, n
 6. Smart Bank Statement Paste
    - Paste from bank app → auto-detects date/amount/merchant
    - Instant bulk import
+
+7. Voice input
