@@ -11,9 +11,11 @@ see frictionless-ux-ideas.txt
 
 
 📋 TO DO:
+❌ Hybrid AI categorisation: keyword pre-filter (uber→Transportation) before calling HuggingFace API. Saves calls + improves accuracy for common expenses
 ❌ Money IN section
 ❌ show user name on navbar
 ❌ make swagger authorize button automatically pass jwt token instead of manual
+❌ fix security issues in endpoints
 ❌ instead of form for create/update expense inline it so user doesn't need to move eyes. think of better ux
 ❌ fix notifications bug 
 ❌ if no values changed in update, dont send api call. show notif nothing changed

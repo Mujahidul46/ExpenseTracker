@@ -1,3 +1,5 @@
+-- Updating expense categories in ex.Categories and remapping ex.Expenses accordingly
+
 BEGIN TRANSACTION;
 
 -- First, insert temporary categories
