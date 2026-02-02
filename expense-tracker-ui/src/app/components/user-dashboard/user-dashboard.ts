@@ -11,10 +11,11 @@ import { UpdateExpenseModalComponent } from '../../shared/input-modals/update-ex
 import { AuthService } from '../../services/auth.service';
 import { AiService } from '../../services/ai.service';
 import { CATEGORY_MAP, CATEGORY_NAMES } from '../constants/categories';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user-dashboard',
-  imports: [ConfirmationModalComponent, NgbToast, ToastsContainer],
+  imports: [ConfirmationModalComponent, NgbToast, ToastsContainer, NgbTooltip],
   templateUrl: './user-dashboard.html',
   styleUrl: './user-dashboard.scss'
 })
@@ -34,6 +35,7 @@ export class UserDashboardComponent implements OnInit {
     showDeleteModal: boolean = false;
     showToastMsg : boolean = false;
     userId! : number;
+    isListening: boolean = false;
 
     @ViewChild('quickInput') quickInputElement!: ElementRef;
     
@@ -175,5 +177,10 @@ export class UserDashboardComponent implements OnInit {
             console.error(`Error suggesting category: ${err}`);
           }
       });
+    }
+
+    toggleVoiceInput() {
+      this.isListening = !this.isListening;
+      // todo: Use web speech API to transcribe speech to text
     }
   }

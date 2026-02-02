@@ -10,7 +10,14 @@
 
 <div class="quick-input-container">
   <input type="text" class="quick-input" placeholder="⚡ Add expense super fast!" (keyup.enter)="parseUserInput($event)" #quickInput>
-
+  <button class="voice-btn"
+          [class.listening]="isListening"
+          #tooltip="ngbTooltip"
+          [ngbTooltip]="isListening ? 'Click to stop' : 'Click to speak'"
+          triggers="hover"
+          (click)="toggleVoiceInput(); tooltip.close()">
+          {{ isListening ? '🔴' : '🎙️' }}
+  </button>
 </div>
 
 <div class="table-container">
