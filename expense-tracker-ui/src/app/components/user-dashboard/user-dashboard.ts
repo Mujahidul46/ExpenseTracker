@@ -37,6 +37,8 @@ export class UserDashboardComponent implements OnInit {
     userId! : number;
     isListening: boolean = false;
 
+    private speechRecognition: any = null;
+
     @ViewChild('quickInput') quickInputElement!: ElementRef;
     
     ngOnInit() {
@@ -45,6 +47,7 @@ export class UserDashboardComponent implements OnInit {
         next: (data) => this.expenses = data,
         error: (err) => console.error(err),
       });
+      this.initialiseSpeechRecognition();
     }
 
     openDeleteModal(expense: Expense) {
@@ -180,7 +183,47 @@ export class UserDashboardComponent implements OnInit {
     }
 
     toggleVoiceInput() {
-      this.isListening = !this.isListening;
-      // todo: Use web speech API to transcribe speech to text
+      if (!this.speechRecognition) { // probably not supported in this browser (limited support on firefox for example)
+        return;
+      }
+      if (this.isListening) {
+        this.speechRecognition.stop();
+      }
+      else { // need to start listening now
+        this.quickInputElement.nativeElement.value = ""; // Will need to update this to improve UX - should append to existing text
+        this.speechRecognition.start();
+      }
+    }
+
+    private initialiseSpeechRecognition(): void {
+      const speechRecognitionAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      if (!speechRecognitionAPI) {
+        return;
+      }
+      this.speechRecognition = new speechRecognitionAPI();
+      this.speechRecognition.continuous = true; // user needs to stop it manually. Silence does NOT stop it.
+      this.speechRecognition.interimResults = true; // needed for real-time text display as user speaks.
+      this.speechRecognition.lang = 'en-GB';
+
+      this.speechRecognition.onresult = (event: any) => {
+        let fullTranscript = ''; // resets every time so we build it from scratch. web speech api can fix text based on new context: e.g. for tea => forty
+        for (let i = 0; i < event.results.length; i++) { // loop through everything spoken so far and add to full transcript. 
+          fullTranscript += event.results[i][0].transcript + ' ';
+        }
+
+        this.quickInputElement.nativeElement.value = fullTranscript.trim(); // display real-time transcript
+      }
+
+      this.speechRecognition.onerror = () => {
+        this.isListening = false;
+      }
+
+      this.speechRecognition.onend = () => {
+        this.isListening = false;
+      }
+
+      this.speechRecognition.onstart = () => {
+        this.isListening = true;
+      }
     }
   }
