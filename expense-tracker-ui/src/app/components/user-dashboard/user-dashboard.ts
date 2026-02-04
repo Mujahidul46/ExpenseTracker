@@ -36,6 +36,7 @@ export class UserDashboardComponent implements OnInit {
     showToastMsg : boolean = false;
     userId! : number;
     isListening: boolean = false;
+    textThatsAlreadyThere: string = '';
 
     private speechRecognition: any = null;
 
@@ -190,7 +191,7 @@ export class UserDashboardComponent implements OnInit {
         this.speechRecognition.stop();
       }
       else { // need to start listening now
-        this.quickInputElement.nativeElement.value = ""; // Will need to update this to improve UX - should append to existing text
+        this.textThatsAlreadyThere = this.quickInputElement.nativeElement.value;
         this.speechRecognition.start();
       }
     }
@@ -206,12 +207,39 @@ export class UserDashboardComponent implements OnInit {
       this.speechRecognition.lang = 'en-GB';
 
       this.speechRecognition.onresult = (event: any) => {
-        let fullTranscript = ''; // resets every time so we build it from scratch. web speech api can fix text based on new context: e.g. for tea => forty
+        let fullTranscript = '';
+        let currentResult = '';
+        let lastSpokenPart = '';
+        if(this.textThatsAlreadyThere != '') {
+          currentResult = this.textThatsAlreadyThere + ' ';
+        }
         for (let i = 0; i < event.results.length; i++) { // loop through everything spoken so far and add to full transcript. 
-          fullTranscript += event.results[i][0].transcript + ' ';
+          currentResult += event.results[i][0].transcript + ' ';
+          
+        }
+        lastSpokenPart = event.results[event.results.length - 1][0].transcript;
+        
+        
+
+        if (currentResult != this.quickInputElement.nativeElement.value) {
+          currentResult = lastSpokenPart;
+          fullTranscript = this.quickInputElement.nativeElement.value + ' ' + currentResult;
+        }
+        else {
+          fullTranscript = currentResult;
         }
 
-        this.quickInputElement.nativeElement.value = fullTranscript.trim(); // display real-time transcript
+        // if theres already text present, prepend this written text to the spoken text
+        // if user corrects any text, that means the expected value differs to the content
+        // of the text box, so we need to only add the new text (so that way we keep the users changes)
+
+
+        let result = fullTranscript.trim();
+        if(this.quickInputElement.nativeElement.value != result) {
+          // add the differing text to result
+        }
+
+        this.quickInputElement.nativeElement.value = result; // display real-time transcript
       }
 
       this.speechRecognition.onerror = () => {
