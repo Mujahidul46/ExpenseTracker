@@ -36,9 +36,9 @@ export class UserDashboardComponent implements OnInit {
     showToastMsg : boolean = false;
     userId! : number;
     isListening: boolean = false;
-    textThatsAlreadyThere: string = '';
 
     private speechRecognition: any = null;
+    private lastExpectedTranscript: string = '';
 
     @ViewChild('quickInput') quickInputElement!: ElementRef;
     
@@ -191,7 +191,7 @@ export class UserDashboardComponent implements OnInit {
         this.speechRecognition.stop();
       }
       else { // need to start listening now
-        this.textThatsAlreadyThere = this.quickInputElement.nativeElement.value;
+        this.lastExpectedTranscript = '';
         this.speechRecognition.start();
       }
     }
@@ -206,86 +206,19 @@ export class UserDashboardComponent implements OnInit {
       this.speechRecognition.interimResults = true; // needed for real-time text display as user speaks.
       this.speechRecognition.lang = 'en-GB';
 
-
-
-
-
-// Pseudo code -- START --
-
-// Example: Coffee -> TEA -> five pound fifty
-
-
-// anything user speaks gets concatenated to transcript variable 
-// if the input box text differs to the transcript, then the user manually made changes
-// In that case we need to take the users changes (aka what's in the input box), and append on the latest word(s) 
-// otherwise, keep the transcript
-
-transcript : string = '';
-
-
-this.speechRecognition.onresult = (event: any) => {
-
-let lastSpokenPart = '';
-
-for (let i = 0; i < event.results.length; i++) {
-          this.transcript += event.results[i][0].transcript + ' ';
-          
-        }
-
-
-if(this.quickInputElement.nativeElement.value !== this.transcript) {
-lastSpokenPart = event.results[event.results.length - 1][0].transcript;
-this.transcript = this.quickInputElement.nativeElement.value + lastSpokenPart;
-}
-
-
-}
-
-this.transcript = this.transcript.trim();
-
-
-// Pseudo code -- END --
-
-
-
-
-
-
-
       this.speechRecognition.onresult = (event: any) => {
         let fullTranscript = '';
-        let currentResult = '';
-        let lastSpokenPart = '';
-        if(this.textThatsAlreadyThere != '') {
-          currentResult = this.textThatsAlreadyThere + ' ';
-        }
-        for (let i = 0; i < event.results.length; i++) { // loop through everything spoken so far and add to full transcript. 
-          currentResult += event.results[i][0].transcript + ' ';
-          
-        }
-        lastSpokenPart = event.results[event.results.length - 1][0].transcript;
-        
-        
 
-        if (currentResult != this.quickInputElement.nativeElement.value) {
-          currentResult = lastSpokenPart;
-          fullTranscript = this.quickInputElement.nativeElement.value + ' ' + currentResult;
-        }
-        else {
-          fullTranscript = currentResult;
+        for (let i = 0; i < event.results.length; i++) {
+          fullTranscript += event.results[i][0].transcript;
         }
 
-        // if theres already text present, prepend this written text to the spoken text
-        // if user corrects any text, that means the expected value differs to the content
-        // of the text box, so we need to only add the new text (so that way we keep the users changes)
-
-
-        let result = fullTranscript.trim();
-        if(this.quickInputElement.nativeElement.value != result) {
-          // add the differing text to result
+        if (this.quickInputElement.nativeElement.value.trim() != this.lastExpectedTranscript.trim()) {
+          console.log('text spoken differs to input box - user manually made changes');
         }
 
-        this.quickInputElement.nativeElement.value = result; // display real-time transcript
+        this.quickInputElement.nativeElement.value = fullTranscript.trim();
+        this.lastExpectedTranscript = fullTranscript.trim();
       }
 
       this.speechRecognition.onerror = () => {
@@ -301,3 +234,48 @@ this.transcript = this.transcript.trim();
       }
     }
   }
+
+
+    // Example: Coffee -> TEA -> five pound fifty
+
+    // anything user speaks gets concatenated to transcript variable 
+    // if the input box text differs to the transcript, then the user manually made changes
+    // In that case we need to take the users changes (aka what's in the input box), and append on the latest word(s) 
+    // otherwise, keep the transcript
+
+
+        // this.speechRecognition.onresult = (event: any) => {
+      //   let fullTranscript = '';
+      //   let currentResult = '';
+      //   let lastSpokenPart = '';
+      //   if(this.textThatsAlreadyThere != '') {
+      //     currentResult = this.textThatsAlreadyThere + ' ';
+      //   }
+      //   for (let i = 0; i < event.results.length; i++) { // loop through everything spoken so far and add to full transcript. 
+      //     currentResult += event.results[i][0].transcript + ' ';
+          
+      //   }
+      //   lastSpokenPart = event.results[event.results.length - 1][0].transcript;
+        
+        
+
+      //   if (currentResult != this.quickInputElement.nativeElement.value) {
+      //     currentResult = lastSpokenPart;
+      //     fullTranscript = this.quickInputElement.nativeElement.value + ' ' + currentResult;
+      //   }
+      //   else {
+      //     fullTranscript = currentResult;
+      //   }
+
+      //   // if theres already text present, prepend this written text to the spoken text
+      //   // if user corrects any text, that means the expected value differs to the content
+      //   // of the text box, so we need to only add the new text (so that way we keep the users changes)
+
+
+      //   let result = fullTranscript.trim();
+      //   if(this.quickInputElement.nativeElement.value != result) {
+      //     // add the differing text to result
+      //   }
+
+      //   this.quickInputElement.nativeElement.value = result; // display real-time transcript
+      // }
