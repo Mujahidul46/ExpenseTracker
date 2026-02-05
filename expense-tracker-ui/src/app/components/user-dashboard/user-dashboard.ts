@@ -206,6 +206,52 @@ export class UserDashboardComponent implements OnInit {
       this.speechRecognition.interimResults = true; // needed for real-time text display as user speaks.
       this.speechRecognition.lang = 'en-GB';
 
+
+
+
+
+// Pseudo code -- START --
+
+// Example: Coffee -> TEA -> five pound fifty
+
+
+// anything user speaks gets concatenated to transcript variable 
+// if the input box text differs to the transcript, then the user manually made changes
+// In that case we need to take the users changes (aka what's in the input box), and append on the latest word(s) 
+// otherwise, keep the transcript
+
+transcript : string = '';
+
+
+this.speechRecognition.onresult = (event: any) => {
+
+let lastSpokenPart = '';
+
+for (let i = 0; i < event.results.length; i++) {
+          this.transcript += event.results[i][0].transcript + ' ';
+          
+        }
+
+
+if(this.quickInputElement.nativeElement.value !== this.transcript) {
+lastSpokenPart = event.results[event.results.length - 1][0].transcript;
+this.transcript = this.quickInputElement.nativeElement.value + lastSpokenPart;
+}
+
+
+}
+
+this.transcript = this.transcript.trim();
+
+
+// Pseudo code -- END --
+
+
+
+
+
+
+
       this.speechRecognition.onresult = (event: any) => {
         let fullTranscript = '';
         let currentResult = '';
