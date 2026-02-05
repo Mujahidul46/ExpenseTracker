@@ -213,11 +213,14 @@ export class UserDashboardComponent implements OnInit {
           fullTranscript += event.results[i][0].transcript;
         }
 
-        if (this.quickInputElement.nativeElement.value.trim() != this.lastExpectedTranscript.trim()) {
-          console.log('text spoken differs to input box - user manually made changes');
+        if (this.quickInputElement.nativeElement.value.trim() !== this.lastExpectedTranscript.trim()) {
+          console.log('User manually made changes');
+          const newlySpoken = fullTranscript.slice(this.lastExpectedTranscript.length); // this is the key line which allows manual changes.
+          this.quickInputElement.nativeElement.value = this.quickInputElement.nativeElement.value.trim() + newlySpoken;
+        } else {
+          this.quickInputElement.nativeElement.value = fullTranscript.trim();
         }
 
-        this.quickInputElement.nativeElement.value = fullTranscript.trim();
         this.lastExpectedTranscript = fullTranscript.trim();
       }
 
