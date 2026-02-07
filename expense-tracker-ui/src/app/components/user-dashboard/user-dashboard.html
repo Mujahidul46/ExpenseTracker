@@ -9,7 +9,7 @@
 <p>All expenses from database from current user:</p>
 
 <div class="quick-input-container">
-  <input type="text" class="quick-input" placeholder="⚡ Add expense super fast!" (keyup.enter)="parseUserInput($event)" #quickInput>
+  <input type="text" class="quick-input" placeholder="⚡ Add expense super fast!" (keyup.enter)="parseUserInput()" #quickInput>
   <button class="quick-input-btn voice-btn"
           [class.listening]="isListening"
           #tooltip="ngbTooltip"
@@ -19,8 +19,10 @@
           {{ isListening ? '🔴' : '🎙️' }}
   </button>
   <button class="quick-input-btn submit-btn"
-          [ngbTooltip]="'Create expense'">
-    🚀
+          [ngbTooltip]="'Create expense'"
+          triggers="hover"
+          (click)="parseUserInput()">
+          🚀
   </button>
 </div>
 

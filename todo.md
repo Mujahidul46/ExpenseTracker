@@ -2,7 +2,7 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
-migrate categories
+research why hugging face api is being so slow. try it again
 quick input works but make it faster, whilst we wait for ai we can put placeholder. otherwise user has to stop typing! do ai in batch?
 probs need to block updating expense whilst it calculates
 
@@ -79,6 +79,7 @@ LEARNING:
 ✅ rename components to use angular19+ version (e.g. remove .component. from home.component.html)
 ✅ add toast for signup success
 ✅ add JWT authetnciation, login, signup etc
+✅ migrate categories
 
 this is a test to see if I can commit from phone
 
