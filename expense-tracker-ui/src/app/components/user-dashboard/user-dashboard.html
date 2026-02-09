@@ -9,7 +9,7 @@
 <p>All expenses from database from current user:</p>
 
 <div class="quick-input-container">
-  <input type="text" class="quick-input" placeholder="⚡ Add expense super fast!" (keyup.enter)="parseUserInput()" #quickInput>
+  <input type="text" class="quick-input" placeholder="⚡ Add expense super fast!" (keyup.enter)="createExpense()" #quickInput>
   <button class="quick-input-btn voice-btn"
           [class.listening]="isListening"
           #tooltip="ngbTooltip"
@@ -21,7 +21,7 @@
   <button class="quick-input-btn submit-btn"
           [ngbTooltip]="'Create expense'"
           triggers="hover"
-          (click)="parseUserInput()">
+          (click)="createExpense()">
           🚀
   </button>
 </div>
@@ -39,7 +39,12 @@
         <tr>
           <td>{{expense.name}}</td>
           <td>{{expense.amount}}</td>
-          <td>{{expense.categoryName}}[{{expense.categoryIcon}}]</td>
+          @if (expense.categoryName === 'Thinking...') {
+            <td>Thinking...</td>
+          }
+          @else {
+            <td>{{expense.categoryName}}[{{expense.categoryIcon}}]</td>
+          }
           <td>
             <button class="update" (click)="updateExpense(expense, successUpdateTpl, failureUpdateTpl)">Update ✏️</button>
             <button class="delete" (click)="openDeleteModal(expense)">Delete 🗑️</button>
@@ -48,7 +53,7 @@
       }
     </tbody>
   </table>
-  <button class="createExpenseBtn" (click)="createExpense(successCreateTpl, failureCreateTpl)">Create new expense</button>
+  <button class="createExpenseBtn" (click)="createExpenseUsingModal(successCreateTpl, failureCreateTpl)">Create new expense</button>
 </div>
 
 

@@ -17,7 +17,7 @@ export const CATEGORY_MAP = {
     'Pets': 16,
     'Gifts': 17,
     'Donations': 18,
-    'Other': 19
+    'Other': 19,
 }
 
 export const CATEGORY_NAMES = Object.keys(CATEGORY_MAP);

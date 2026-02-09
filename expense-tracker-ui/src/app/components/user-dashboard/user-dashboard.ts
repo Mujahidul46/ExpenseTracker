@@ -83,7 +83,7 @@ export class UserDashboardComponent implements OnInit {
       }});
     }
 
-    createExpense(successTemplate: TemplateRef<any>, failureTemplate: TemplateRef<any>) {
+    createExpenseUsingModal(successTemplate: TemplateRef<any>, failureTemplate: TemplateRef<any>) {
       const modalRef = this.modalService.open(CreateExpenseModalComponent);
 
       modalRef.result.then((expense) => {
@@ -137,11 +137,16 @@ export class UserDashboardComponent implements OnInit {
       });
     }
 
-    parseUserInput() {
+    createExpense() {
       if (this.isListening) {
         this.isListening = false;
         this.speechRecognition.stop();
       }
+      const { expenseName, amountAsNumber } = this.parseUserInput();
+      this.createExpenseFromQuickAdd(expenseName, amountAsNumber);
+    }
+
+    parseUserInput(): {expenseName: string, amountAsNumber: number} {
       const input = this.quickInputElement.nativeElement.value.trim();
       console.log('User Input:', input);
       const amountMatch = input.match(/\d+\.?\d*/);
@@ -151,42 +156,61 @@ export class UserDashboardComponent implements OnInit {
                           .replaceAll(/[£$€]/g, '')
                           .trim();
       console.log('Parsed Name:', expenseName);
-      this.createExpenseFromQuickAdd(expenseName, amountAsNumber);
+      return {expenseName, amountAsNumber};
     }
 
     createExpenseFromQuickAdd(expenseName: string, amount: number) {
       console.log('Inside createExpenseFromQuickAdd method');
-      this.aiService.getSugggestedCategory(expenseName, CATEGORY_NAMES)
-        .subscribe({
-          next: (response) => {
-            const categoryName = response.suggestedCategory || 'Other';
-            const categoryId = CATEGORY_MAP[categoryName as keyof typeof CATEGORY_MAP];
-            console.log(`AI Suggested Category: ${categoryName} with confidence ${response.confidence}`);
+      const expense: Expense = {
+        name: expenseName,
+        amount: amount,
+        categoryId: 19,
+        categoryName: 'Thinking...',
+        userId: this.userId,
+      } as Expense;
 
-            const expense: Expense = {
-              name: expenseName,
-              amount: amount,
-              categoryId: categoryId,
-              userId: this.userId,
-            } as Expense;
 
-            this.expenseService.createExpense(expense).subscribe({
-              next: (createdExpense) => {
-                this.expenses.push(createdExpense);
-                this.expenseName = createdExpense.name;
-                this.quickInputElement.nativeElement.value = '';
+
+      this.expenseService.createExpense(expense).subscribe({
+        next: (createdExpense) => {
+          createdExpense.categoryName = 'Thinking...';
+          createdExpense.categoryIcon = '🤔';
+          this.expenses.push(createdExpense);
+          this.expenseName = createdExpense.name;
+          this.quickInputElement.nativeElement.value = '';
+
+          this.aiService.getSugggestedCategory(expenseName, CATEGORY_NAMES)
+            .subscribe({
+              next: (response) => {
+                const categoryName = response.suggestedCategory || 'Other';
+                const categoryId = CATEGORY_MAP[categoryName as keyof typeof CATEGORY_MAP];
+                console.log(`AI Suggested Category: ${categoryName} with confidence ${response.confidence}`);
+                
+                this.expenseService.updateExpense(createdExpense.id, {...expense, categoryId}).subscribe({
+                  next: (result) => {
+                    const index = this.expenses.findIndex(e => e.id === createdExpense.id);
+                    if (index !== -1) {
+                      this.expenses[index] = result;
+                    }
+                    
+                  },
+                  error: (err) => {
+                    console.error('Update expense failed', err);
+                  }
+                });
               },
               error: (err) => {
-                console.error('Create expense failed', err);
-                
+                console.error(`Error suggesting category: ${err}`);
               }
-            });
-
-          },
-          error: (err) => {
-            console.error(`Error suggesting category: ${err}`);
-          }
+          });
+        },
+        error: (err) => {
+          console.error('Create expense failed', err);
+          
+        }
       });
+
+      
     }
 
     toggleVoiceInput() {
