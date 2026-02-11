@@ -2,6 +2,7 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
+created stored procedure for migrating categories
 research why hugging face api is being so slow. try it again
 quick input works but make it faster, whilst we wait for ai we can put placeholder. otherwise user has to stop typing! do ai in batch?
 probs need to block updating expense whilst it calculates
