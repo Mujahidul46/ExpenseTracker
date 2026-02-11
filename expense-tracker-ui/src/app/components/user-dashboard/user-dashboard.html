@@ -39,12 +39,7 @@
         <tr>
           <td>{{expense.name}}</td>
           <td>{{expense.amount}}</td>
-          @if (expense.categoryName === 'Thinking...') {
-            <td>Thinking...</td>
-          }
-          @else {
-            <td>{{expense.categoryName}}[{{expense.categoryIcon}}]</td>
-          }
+          <td>{{expense.categoryName}}[{{expense.categoryIcon}}]</td>
           <td>
             <button class="update" (click)="updateExpense(expense, successUpdateTpl, failureUpdateTpl)">Update ✏️</button>
             <button class="delete" (click)="openDeleteModal(expense)">Delete 🗑️</button>

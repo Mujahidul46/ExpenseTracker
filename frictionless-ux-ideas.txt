@@ -1,29 +1,30 @@
 🚀 FRICTIONLESS EXPENSE INPUT IDEAS
 ====================================
 
-1. Natural Language Quick Add
-   - Type: "£12.50 coffee starbucks" → auto-parses amount, category, name
-   - Zero friction, one line, done
-
-2. Inline Table Editing
+1. Inline Table Editing
    - Click any cell → edit in place, no popups
    - Eyes never leave the table
 
-3. Smart Autocomplete
+2. Smart Autocomplete
    - Type "st..." → suggests "Starbucks coffee - £4.50 - Food"
    - Learns from your history
 
-4. Quick Add Bar (Always Visible) put lightning emoji :)
-   - Fixed input at top of screen
-   - Press Enter → instant add → auto-clears for next
-
-5. Bulk Paste Parser ⭐
+3. Bulk Paste Parser ⭐
    Example:
    Paste unstructured text:
    "bought coffee 4.50
    uber home 12
    tesco shopping 45.67"
-Make it show the ouput as user types it in for immediate feedback (one-by-one, not all at end)
+   Make it show the output as user types it in for immediate feedback (one-by-one, not all at end)
+
+4. Voice Dump Mode ⭐
+   - Speak continuously for 1-2 minutes
+   - "I bought coffee 4.50, uber was 12, tesco 45.67..."
+   - AI parses into multiple expenses
+   - Preview table (green highlights like agent mode vscode)
+   - Edit/delete bad parses before confirming
+   - One click → creates all expenses
+   - Same review flow works for paste (idea #4)
    
    → Auto-creates 3 expenses
    → AI suggests categories
@@ -33,8 +34,40 @@ Make it show the ouput as user types it in for immediate feedback (one-by-one, n
    - Parse multiple expenses from messy text
    - Perfect for end-of-day batch entry
 
-6. Smart Bank Statement Paste
+5. Smart Bank Statement Paste
    - Paste from bank app → auto-detects date/amount/merchant
    - Instant bulk import
 
-7. Voice input
+6. Excel/CSV Import
+   - Upload spreadsheet with expenses
+   - Handles bank exports with junk prefixes (POS, DEBIT)
+
+7. Screenshot Receipt Scanner ⭐
+   - Take photo or paste receipt screenshot
+   - OCR extracts merchant, amount, date
+   - Preview → user confirms/edits
+   - Perfect for expense reports
+
+====================================
+IMPLEMENTATION NOTES
+====================================
+
+For all ways to create an expense, we need a Transcript Cleaner
+ Remove Words List:
+  Action verbs: bought, purchased, paid, spent, got, ordered, had, went, grabbed, picked, took, used, needed, wanted
+  Pronouns/articles: i, my, me, the, a, an, some
+  Prepositions: for, at, on, to, from, in, with, of, and, or, but, then, also, plus
+  Time words: today, yesterday, earlier, later, morning, afternoon, before, after, when, while
+  Approximations: about, around, roughly, approximately, like
+  Noise: um, uh, er, ah, well, so, just, really
+
+done:
+1. Quick Add Bar (Always Visible) put lightning emoji :)
+   - Fixed input at top of screen
+   - Press Enter → instant add → auto-clears for next
+
+2. Voice input
+
+3. Natural Language Quick Add
+   - Type: "£12.50 coffee starbucks" → auto-parses amount, category, name
+   - Zero friction, one line, done

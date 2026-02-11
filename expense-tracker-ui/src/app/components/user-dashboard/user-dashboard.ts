@@ -165,7 +165,6 @@ export class UserDashboardComponent implements OnInit {
         name: expenseName,
         amount: amount,
         categoryId: 19,
-        categoryName: 'Thinking...',
         userId: this.userId,
       } as Expense;
 

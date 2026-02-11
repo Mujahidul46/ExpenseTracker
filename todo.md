@@ -2,15 +2,24 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
-created stored procedure for migrating categories
-research why hugging face api is being so slow. try it again
-quick input works but make it faster, whilst we wait for ai we can put placeholder. otherwise user has to stop typing! do ai in batch?
+refactor user-dashboard.component.ts so that quick input bar is its own separate component. refactor step by step and ensure feature still works.
+
+ADD THIS
+│   ├── quick-input-bar/              ← Quick text + voice
+│   │   ├── quick-input-bar.component.ts
+│   │   ├── quick-input-bar.component.html
+│   │   └── quick-input-bar.component.scss
+
+ADD THIS
+│   ├── transcript-cleaner.service.ts ← NEW
+│   ├── expense-parser.service.ts     ← NEW
+│   └── speech-recognition.service.ts ← NEW
+
+
+*****create transcript cleaner -see frictionless ux ideas*****
+
 probs need to block updating expense whilst it calculates
-its good that the ai feature doesnt work cos then i can debug as if it is an actual problem.
-solutino is to either use diferent ai model or find why this one slow
 see frictionless-ux-ideas.txt
-
-
 
 📋 TO DO:
 ❌ Hybrid AI categorisation: keyword pre-filter (uber→Transportation) before calling HuggingFace API. Saves calls + improves accuracy for common expenses
