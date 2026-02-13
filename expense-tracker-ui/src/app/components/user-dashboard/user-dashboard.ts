@@ -152,11 +152,32 @@ export class UserDashboardComponent implements OnInit {
       const amountMatch = input.match(/\d+\.?\d*/);
       const amountAsNumber = amountMatch ? parseFloat(amountMatch[0]) : 0;
       console.log('Parsed Amount:', amountAsNumber);
-      const expenseName = input.replace(/\d+\.?\d*/, '')
+      const allTextExceptAmount = input.replace(/\d+\.?\d*/, '')
                           .replaceAll(/[£$€]/g, '')
                           .trim();
+      const expenseName = getTextWithoutFillerWords(allTextExceptAmount);
       console.log('Parsed Name:', expenseName);
       return {expenseName, amountAsNumber};
+    }
+
+    getTextWithoutFillerWords(input: string): string {
+      const listOfFillerWords: string[] = [
+        // Action verbs
+        'bought', 'purchased', 'paid', 'spent', 'got', 'ordered', 'had', 'went', 'grabbed', 'picked', 'took', 'used', 'needed', 'wanted',
+        // Pronouns/articles
+        'i', 'my', 'me', 'the', 'a', 'an', 'some',
+        // Prepositions
+        'for', 'at', 'on', 'to', 'from', 'in', 'with', 'of', 'and', 'or', 'but', 'then', 'also', 'plus',
+        // Time words
+        'today', 'yesterday', 'earlier', 'later', 'morning', 'afternoon', 'before', 'after', 'when', 'while',
+        // Approximations
+        'about', 'around', 'roughly', 'approximately', 'like',
+        // Noise
+        'um', 'uh', 'er', 'ah', 'well', 'so', 'just', 'really'
+      ];
+      
+      // TODO: implement logic to remove filler words from input
+      return input;
     }
 
     createExpenseFromQuickAdd(expenseName: string, amount: number) {
