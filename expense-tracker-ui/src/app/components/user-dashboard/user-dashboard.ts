@@ -155,7 +155,7 @@ export class UserDashboardComponent implements OnInit {
       const allTextExceptAmount = input.replace(/\d+\.?\d*/, '')
                           .replaceAll(/[£$€]/g, '')
                           .trim();
-      const expenseName = getTextWithoutFillerWords(allTextExceptAmount);
+      const expenseName = this.getTextWithoutFillerWords(allTextExceptAmount);
       console.log('Parsed Name:', expenseName);
       return {expenseName, amountAsNumber};
     }
@@ -165,7 +165,7 @@ export class UserDashboardComponent implements OnInit {
         // Action verbs
         'bought', 'purchased', 'paid', 'spent', 'got', 'ordered', 'had', 'went', 'grabbed', 'picked', 'took', 'used', 'needed', 'wanted',
         // Pronouns/articles
-        'i', 'my', 'me', 'the', 'a', 'an', 'some',
+        'i', 'my', 'me', 'the', 'a', 'an', 'some', 'this', 'that', 'these', 'those',
         // Prepositions
         'for', 'at', 'on', 'to', 'from', 'in', 'with', 'of', 'and', 'or', 'but', 'then', 'also', 'plus',
         // Time words
@@ -173,23 +173,32 @@ export class UserDashboardComponent implements OnInit {
         // Approximations
         'about', 'around', 'roughly', 'approximately', 'like',
         // Noise
-        'um', 'uh', 'er', 'ah', 'well', 'so', 'just', 'really'
+        'um', 'uh', 'er', 'ah', 'well', 'so', 'just', 'really',
+        // Auxiliary verbs
+        'is', 'was', 'were', 'are', 'am', 'be', 'been', 'being', 'have', 'has', 'do', 'does', 'did',
+        // Modal verbs
+        'will', 'would', 'should', 'could', 'can', 'may', 'might', 'must', 'shall'
       ];
+      const words = input.toLowerCase().split(/\s+/);
+      const filteredWords: string[] = [];
+      for (var word of words) {
+        if (!listOfFillerWords.includes(word)) {
+          filteredWords.push(word);
+        }
+      }
       
-      // TODO: implement logic to remove filler words from input
-      return input;
+      return filteredWords.join(' ').trim();
     }
 
     createExpenseFromQuickAdd(expenseName: string, amount: number) {
       console.log('Inside createExpenseFromQuickAdd method');
+
       const expense: Expense = {
         name: expenseName,
         amount: amount,
         categoryId: 19,
         userId: this.userId,
       } as Expense;
-
-
 
       this.expenseService.createExpense(expense).subscribe({
         next: (createdExpense) => {
