@@ -3,6 +3,15 @@ Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
 refactor user-dashboard.component.ts so that quick input bar is its own separate component. refactor step by step and ensure feature still works.
+two pounds -> £2. also two pound -> £2. also two pound fifty -> £2.50
+
+category stuff:
+// add clothes cos tshirt is not transportation, its clothes
+// add category for coffee (i dont know what yet), but right now its "utilities"
+// also for auto-categorisation, maybe we should hard-code some obvious ones to make more accurate
+// plus it also means less API calls
+
+also if ai confidence is low then highlight to indicate to user to check
 
 ADD THIS
 │   ├── quick-input-bar/              ← Quick text + voice

@@ -9,7 +9,10 @@
 <p>All expenses from database from current user:</p>
 
 <div class="quick-input-container">
-  <input type="text" class="quick-input" placeholder="⚡ Add expense super fast!" (keyup.enter)="createExpense()" #quickInput>
+  <input type="text" class="quick-input" 
+  placeholder="⚡ Add expense super fast! E.g. &quot;I bought coffee for £2.50&quot;, or just &quot;Coffee £2.50&quot;" 
+  (keyup.enter)="createExpense()" #quickInput>
+
   <button class="quick-input-btn voice-btn"
           [class.listening]="isListening"
           #tooltip="ngbTooltip"
@@ -18,6 +21,7 @@
           (click)="toggleVoiceInput(); tooltip.close()">
           {{ isListening ? '🔴' : '🎙️' }}
   </button>
+  
   <button class="quick-input-btn submit-btn"
           [ngbTooltip]="'Create expense'"
           triggers="hover"
@@ -38,7 +42,7 @@
       @for (expense of expenses; track expense.id) {
         <tr>
           <td>{{expense.name}}</td>
-          <td>{{expense.amount}}</td>
+          <td>{{expense.amount | number:'1.2-2'}}</td>
           <td>{{expense.categoryName}}[{{expense.categoryIcon}}]</td>
           <td>
             <button class="update" (click)="updateExpense(expense, successUpdateTpl, failureUpdateTpl)">Update ✏️</button>

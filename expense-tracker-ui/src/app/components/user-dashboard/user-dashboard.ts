@@ -12,10 +12,12 @@ import { AuthService } from '../../services/auth.service';
 import { AiService } from '../../services/ai.service';
 import { CATEGORY_MAP, CATEGORY_NAMES } from '../constants/categories';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { WORD_TO_NUMBER_MAPPING } from '../constants/wordToNumberMapping';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-dashboard',
-  imports: [ConfirmationModalComponent, NgbToast, ToastsContainer, NgbTooltip],
+  imports: [ConfirmationModalComponent, NgbToast, ToastsContainer, NgbTooltip, DecimalPipe],
   templateUrl: './user-dashboard.html',
   styleUrl: './user-dashboard.scss'
 })
@@ -36,7 +38,7 @@ export class UserDashboardComponent implements OnInit {
     showToastMsg : boolean = false;
     userId! : number;
     isListening: boolean = false;
-
+    
     private speechRecognition: any = null;
     private lastExpectedTranscript: string = '';
 
@@ -149,15 +151,56 @@ export class UserDashboardComponent implements OnInit {
     parseUserInput(): {expenseName: string, amountAsNumber: number} {
       const input = this.quickInputElement.nativeElement.value.trim();
       console.log('User Input:', input);
-      const amountMatch = input.match(/\d+\.?\d*/);
-      const amountAsNumber = amountMatch ? parseFloat(amountMatch[0]) : 0;
-      console.log('Parsed Amount:', amountAsNumber);
-      const allTextExceptAmount = input.replace(/\d+\.?\d*/, '')
+      const amountAsNumber = this.getAmount(input);
+      const allTextExceptAmount = input.replace(/(\d+)\s+pounds?\s+(\d+)/, '')
+                          .replace(/(\w+)\s+pound\s+(\w+)/, '')
+                          .replace(/(\w+)\s+pounds?/, '')
+                          .replace(/\d+\.?\d*/, '')
                           .replaceAll(/[£$€]/g, '')
                           .trim();
       const expenseName = this.getTextWithoutFillerWords(allTextExceptAmount);
       console.log('Parsed Name:', expenseName);
       return {expenseName, amountAsNumber};
+    }
+
+    // need to do: 20 pounds -> £20
+    getAmount(input: string): number {
+      const amountAsWordMatch0 = input.match(/(\d+)\s+pounds?\s+(\d+)/); // 2 pound 50
+      const amountAsWordMatch1 = input.match(/(\w+)\s+pounds?\s+(\w+)/); // two pound fifty
+      const amountAsWordMatch2 = input.match(/(\w+)\s+pounds?/); // two pounds
+      const amountAsNumberMatch = input.match(/\d+\.?\d*/); // 2.50 or 3
+
+      if (amountAsWordMatch0) {
+        const poundsAsNumber = parseFloat(amountAsWordMatch0[1]); // 2
+        const penceAsNumber = parseFloat(amountAsWordMatch0[2]); // 50
+        const amountAsNumber = poundsAsNumber + (penceAsNumber / 100); // 2.50
+        console.log('Parsed Amount:', amountAsNumber);
+        return amountAsNumber;
+      }
+      else if (amountAsWordMatch1 && amountAsWordMatch1[1] in WORD_TO_NUMBER_MAPPING && amountAsWordMatch1[2] in WORD_TO_NUMBER_MAPPING) { // two pound fifty
+        const poundsAsWord = amountAsWordMatch1[1]; // two
+        const penceAsWord = amountAsWordMatch1[2]; // fifty
+        const poundsAsNumber = WORD_TO_NUMBER_MAPPING[poundsAsWord]; // 2
+        const penceAsNumber = WORD_TO_NUMBER_MAPPING[penceAsWord]; // 50
+        const amountAsNumber = poundsAsNumber + (penceAsNumber / 100); // 2.50
+        console.log('Parsed Amount:', amountAsNumber);
+        return amountAsNumber;
+      }
+      else if (amountAsWordMatch2) { // two pounds
+        const numberAsWord = amountAsWordMatch2[1]; // two
+        const amountAsNumber = numberAsWord ? WORD_TO_NUMBER_MAPPING[numberAsWord] : 0;
+        console.log('Parsed Amount', amountAsNumber);
+        return amountAsNumber;
+      }
+      else if (amountAsNumberMatch) { // 2.50 or 3
+        const amountAsNumber = parseFloat(amountAsNumberMatch[0]);
+        console.log('Parsed Amount:', amountAsNumber);
+        return amountAsNumber;
+      }
+      else {
+        console.log('no pattern match found for amount, defaulting to 0');
+        return 0;
+      }
     }
 
     getTextWithoutFillerWords(input: string): string {
@@ -207,7 +250,6 @@ export class UserDashboardComponent implements OnInit {
           filteredWords.push(word);
         }
       }
-      
       return filteredWords.join(' ').trim();
     }
 
