@@ -9,9 +9,9 @@
 <p>All expenses from database from current user:</p>
 
 <div class="quick-input-container">
-  <input type="text" class="quick-input" 
+  <textarea class="quick-input" rows="2"
   placeholder="⚡ Add expense super fast! E.g. &quot;I bought coffee for £2.50&quot;, or just &quot;Coffee £2.50&quot;" 
-  (keyup.enter)="createExpense()" #quickInput>
+  (keyup.enter)="createExpense()" #quickInput></textarea>
 
   <button class="quick-input-btn voice-btn"
           [class.listening]="isListening"

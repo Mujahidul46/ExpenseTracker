@@ -152,9 +152,10 @@ export class UserDashboardComponent implements OnInit {
       const input = this.quickInputElement.nativeElement.value.trim();
       console.log('User Input:', input);
       const amountAsNumber = this.getAmount(input);
-      const allTextExceptAmount = input.replace(/(\d+)\s+pounds?\s+(\d+)/, '')
-                          .replace(/(\w+)\s+pound\s+(\w+)/, '')
-                          .replace(/(\w+)\s+pounds?/, '')
+      const allTextExceptAmount = input.replace(/(\d+)\s*pounds?\s*(\d+)/, '')
+                          .replace(/(\w+)\s*pounds?\s*(\w+)/, '')
+                          .replace(/(\d+)\s*pounds?/, '')
+                          .replace(/(\w+)\s*pounds?/, '')
                           .replace(/\d+\.?\d*/, '')
                           .replaceAll(/[£$€]/g, '')
                           .trim();
@@ -165,9 +166,10 @@ export class UserDashboardComponent implements OnInit {
 
     // need to do: 20 pounds -> £20
     getAmount(input: string): number {
-      const amountAsWordMatch0 = input.match(/(\d+)\s+pounds?\s+(\d+)/); // 2 pound 50
-      const amountAsWordMatch1 = input.match(/(\w+)\s+pounds?\s+(\w+)/); // two pound fifty
-      const amountAsWordMatch2 = input.match(/(\w+)\s+pounds?/); // two pounds
+      const amountAsWordMatch0 = input.match(/(\d+)\s*pounds?\s*(\d+)/); // 2 pound 50
+      const amountAsWordMatch1 = input.match(/(\w+)\s*pounds?\s*(\w+)/); // two pound fifty
+      const amountAsWordMatch2 = input.match(/(\d+)\s*pounds?/); // 20 pounds
+      const amountAsWordMatch3 = input.match(/(\w+)\s*pounds?/); // two pounds
       const amountAsNumberMatch = input.match(/\d+\.?\d*/); // 2.50 or 3
 
       if (amountAsWordMatch0) {
@@ -186,8 +188,13 @@ export class UserDashboardComponent implements OnInit {
         console.log('Parsed Amount:', amountAsNumber);
         return amountAsNumber;
       }
-      else if (amountAsWordMatch2) { // two pounds
-        const numberAsWord = amountAsWordMatch2[1]; // two
+      else if (amountAsWordMatch2) { // 20 pounds
+        const poundsAsNumber = parseFloat(amountAsWordMatch2[1]); // 20
+        console.log('Parsed Amount:', poundsAsNumber);
+        return poundsAsNumber;
+      }
+      else if (amountAsWordMatch3) { // two pounds
+        const numberAsWord = amountAsWordMatch3[1]; // two
         const amountAsNumber = numberAsWord ? WORD_TO_NUMBER_MAPPING[numberAsWord] : 0;
         console.log('Parsed Amount', amountAsNumber);
         return amountAsNumber;
