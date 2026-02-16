@@ -4,6 +4,7 @@ Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 🚀 Work on next: 
 refactor user-dashboard.component.ts so that quick input bar is its own separate component. refactor step by step and ensure feature still works.
 two pounds -> £2. also two pound -> £2. also two pound fifty -> £2.50
+improve category list to what is defined in categories.ts
 
 category stuff:
 // add clothes cos tshirt is not transportation, its clothes
