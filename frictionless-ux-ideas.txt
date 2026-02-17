@@ -48,6 +48,8 @@
    - Preview → user confirms/edits
    - Perfect for expense reports
 
+8. Default the expense date to today and don’t show a date picker in Quick Add. If the user types or says a date (“yesterday”, “12 Feb”), override it automatically.
+
 ====================================
 IMPLEMENTATION NOTES
 ====================================
