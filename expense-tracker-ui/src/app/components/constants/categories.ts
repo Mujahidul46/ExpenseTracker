@@ -33,7 +33,7 @@ export const CATEGORY_NAMES = Object.keys(CATEGORY_MAP);
 //     "Housing (rent, mortgage, deposit)",
 //     "Utilities (electricity, gas, water, internet, phone bill)",
 //     "Healthcare (doctor, dentist, pharmacy, medicine, hospital)",
-//     "Clothing and Footwear (clothes, tshirt, t-shirt, shirt, jeans, shoes, trainers, sneakers, nike, adidas, boots, jacket, dress, primark, zara)",
+//     "Clothing (clothes, tshirt, t-shirt, shirt, jeans, shoes, trainers, sneakers, nike, adidas, boots, jacket, dress, primark, zara)",
 //     "Shopping (amazon, electronics, gadgets, household items)",
 //     "Entertainment (cinema, movies, games, netflix, spotify, concert)",
 //     "Education (books, courses, tuition, university)",

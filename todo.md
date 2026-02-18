@@ -2,6 +2,7 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
+pass category keywords to hugging face api to improve category suggestions
 refactor user-dashboard.component.ts so that quick input bar is its own separate component. refactor step by step and ensure feature still works.
 two pounds -> £2. also two pound -> £2. also two pound fifty -> £2.50
 improve category list to what is defined in categories.ts
@@ -101,6 +102,7 @@ LEARNING:
 ✅ add toast for signup success
 ✅ add JWT authetnciation, login, signup etc
 ✅ migrate categories
+✅ Added category keywords to database and added new clothing category
 
 this is a test to see if I can commit from phone
 
