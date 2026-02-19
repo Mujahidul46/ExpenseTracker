@@ -1,6 +1,8 @@
-﻿using ExpenseTrackerAPI.Dtos;
+﻿using ExpenseTrackerAPI.Data;
+using ExpenseTrackerAPI.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Text;
 using System.Text.Json;
 
@@ -15,10 +17,12 @@ namespace ExpenseTrackerAPI.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _httpClientFactory;
-        public AiController(IConfiguration configuration, IHttpClientFactory httpClientFactory)
+        private readonly ExpenseTrackerContext _dbContext;
+        public AiController(IConfiguration configuration, IHttpClientFactory httpClientFactory, ExpenseTrackerContext dbContext)
         {
             _configuration = configuration;
             _httpClientFactory = httpClientFactory;
+            _dbContext = dbContext;
         }
 
         [HttpPost("suggest-category")]
@@ -38,6 +42,10 @@ namespace ExpenseTrackerAPI.Controllers
                     return StatusCode(500, "Issue with Hugging Face API token");
                 }
 
+                // loop through each category and get each categories' accompanying keywords so that we
+                // can append this in the request. This will help the hugging face API categorise more 
+                // accurately.
+
                 var payload = new
                 {
                     inputs = request.ExpenseName,
@@ -54,6 +62,7 @@ namespace ExpenseTrackerAPI.Controllers
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
                 var response = await client.PostAsync(apiUrl, content);
+
                 if (!response.IsSuccessStatusCode)
                 {
                     var errorMessage = await response.Content.ReadAsStringAsync();

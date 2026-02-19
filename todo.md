@@ -3,6 +3,11 @@ Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
 pass category keywords to hugging face api to improve category suggestions
+- change suggest category api to not need category list as parameter, instead retreive category list from backend
+as well as accompanying keywords. pass category list and keywords hugging face api.
+
+
+
 refactor user-dashboard.component.ts so that quick input bar is its own separate component. refactor step by step and ensure feature still works.
 two pounds -> £2. also two pound -> £2. also two pound fifty -> £2.50
 improve category list to what is defined in categories.ts
