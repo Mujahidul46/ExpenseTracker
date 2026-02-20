@@ -9,10 +9,9 @@ export class AiService {
 
     }
 
-    public getSugggestedCategory(expenseName: string, categoryNames: string[]): Observable<any> {
+    public getSugggestedCategory(expenseName: string): Observable<any> {
         return this.http.post(`${baseApiUrl}/ai/suggest-category`, {
-            expenseName: expenseName,
-            categories: categoryNames
+            expenseName: expenseName
         });
     }
 

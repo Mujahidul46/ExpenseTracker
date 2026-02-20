@@ -42,16 +42,17 @@ namespace ExpenseTrackerAPI.Controllers
                     return StatusCode(500, "Issue with Hugging Face API token");
                 }
 
-                // loop through each category and get each categories' accompanying keywords so that we
-                // can append this in the request. This will help the hugging face API categorise more 
-                // accurately.
+                var categories = await _dbContext.Categories.ToListAsync();
+                var listOfCategoriesWithKeywords = categories
+                        .Select(c => $"{c.Name} ({c.Keywords})")
+                        .ToList();
 
                 var payload = new
                 {
                     inputs = request.ExpenseName,
                     parameters = new
                     {
-                        candidate_labels = request.Categories
+                        candidate_labels = listOfCategoriesWithKeywords
                     }
                 };
 
@@ -73,7 +74,8 @@ namespace ExpenseTrackerAPI.Controllers
                 Console.WriteLine("Hugging Face response: " + responseContent);
                 var results = JsonSerializer.Deserialize<List<HuggingFaceResponseDto>>(responseContent);
 
-                string suggestedCategory = results?[0].label ?? "Unknown";
+                string suggestedCategoryWithKeywords = results?[0].label ?? "Unknown";
+                string suggestedCategory = suggestedCategoryWithKeywords.Split("(")[0].Trim();
                 return Ok(new
                 {
                     suggestedCategory = suggestedCategory,

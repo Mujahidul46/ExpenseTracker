@@ -278,7 +278,7 @@ export class UserDashboardComponent implements OnInit {
           this.expenseName = createdExpense.name;
           this.quickInputElement.nativeElement.value = '';
 
-          this.aiService.getSugggestedCategory(expenseName, CATEGORY_NAMES)
+          this.aiService.getSugggestedCategory(expenseName)
             .subscribe({
               next: (response) => {
                 const categoryName = response.suggestedCategory || 'Other';

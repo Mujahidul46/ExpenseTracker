@@ -2,23 +2,13 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
-pass category keywords to hugging face api to improve category suggestions
-- change suggest category api to not need category list as parameter, instead retreive category list from backend
-as well as accompanying keywords. pass category list and keywords hugging face api.
-
-
-
 refactor user-dashboard.component.ts so that quick input bar is its own separate component. refactor step by step and ensure feature still works.
 two pounds -> £2. also two pound -> £2. also two pound fifty -> £2.50
 improve category list to what is defined in categories.ts
 
-category stuff:
-// add clothes cos tshirt is not transportation, its clothes
-// add category for coffee (i dont know what yet), but right now its "utilities"
-// also for auto-categorisation, maybe we should hard-code some obvious ones to make more accurate
-// plus it also means less API calls
-
 also if ai confidence is low then highlight to indicate to user to check
+
+host database in cloud
 
 ADD THIS
 │   ├── quick-input-bar/              ← Quick text + voice
@@ -38,7 +28,7 @@ probs need to block updating expense whilst it calculates
 see frictionless-ux-ideas.txt
 
 📋 TO DO:
-❌ Hybrid AI categorisation: keyword pre-filter (uber→Transportation) before calling HuggingFace API. Saves calls + improves accuracy for common expenses
+❌ host database in cloud
 ❌ Money IN section
 ❌ show user name on navbar
 ❌ make swagger authorize button automatically pass jwt token instead of manual
@@ -108,6 +98,7 @@ LEARNING:
 ✅ add JWT authetnciation, login, signup etc
 ✅ migrate categories
 ✅ Added category keywords to database and added new clothing category
+✅ pass category keywords to hugging face api to improve category suggestions
 
 this is a test to see if I can commit from phone
 
