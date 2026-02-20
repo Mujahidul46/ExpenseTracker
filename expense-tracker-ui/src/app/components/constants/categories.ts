@@ -50,3 +50,6 @@ export const CATEGORY_NAMES = Object.keys(CATEGORY_MAP);
 //     "Other (miscellaneous)"
 //   ]
 // }
+
+// words still not correctly categorised:
+// phone, chair, football

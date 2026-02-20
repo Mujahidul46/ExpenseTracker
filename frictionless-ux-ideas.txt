@@ -54,15 +54,6 @@
 IMPLEMENTATION NOTES
 ====================================
 
-For all ways to create an expense, we need a Transcript Cleaner
- Remove Words List:
-  Action verbs: bought, purchased, paid, spent, got, ordered, had, went, grabbed, picked, took, used, needed, wanted
-  Pronouns/articles: i, my, me, the, a, an, some
-  Prepositions: for, at, on, to, from, in, with, of, and, or, but, then, also, plus
-  Time words: today, yesterday, earlier, later, morning, afternoon, before, after, when, while
-  Approximations: about, around, roughly, approximately, like
-  Noise: um, uh, er, ah, well, so, just, really
-
 done:
 1. Quick Add Bar (Always Visible) put lightning emoji :)
    - Fixed input at top of screen
@@ -73,3 +64,5 @@ done:
 3. Natural Language Quick Add
    - Type: "£12.50 coffee starbucks" → auto-parses amount, category, name
    - Zero friction, one line, done
+
+4. Transcript cleaner (remove unnecessary words)

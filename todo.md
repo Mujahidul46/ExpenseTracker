@@ -2,13 +2,8 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
+make refactoring branch. refacotr services first then quick input component
 refactor user-dashboard.component.ts so that quick input bar is its own separate component. refactor step by step and ensure feature still works.
-two pounds -> £2. also two pound -> £2. also two pound fifty -> £2.50
-improve category list to what is defined in categories.ts
-
-also if ai confidence is low then highlight to indicate to user to check
-
-host database in cloud
 
 ADD THIS
 │   ├── quick-input-bar/              ← Quick text + voice
@@ -16,13 +11,15 @@ ADD THIS
 │   │   ├── quick-input-bar.component.html
 │   │   └── quick-input-bar.component.scss
 
-ADD THIS
+ADD THESE SERVICES
 │   ├── transcript-cleaner.service.ts ← NEW
 │   ├── expense-parser.service.ts     ← NEW
 │   └── speech-recognition.service.ts ← NEW
 
 
-*****create transcript cleaner -see frictionless ux ideas*****
+also if ai confidence is low then highlight to indicate to user to check
+
+host database in cloud
 
 probs need to block updating expense whilst it calculates
 see frictionless-ux-ideas.txt
@@ -45,6 +42,7 @@ see frictionless-ux-ideas.txt
 ❌ powerbi dashboard style ui 
 ❌ Create repository layer which talks to db
 ❌ add middleware OR refresh endppint which refreshes token on every api request so user never redirected to login if they are using app. only way they redirected is if inactive ( no http requests ) for 60 mins. use docs to learn proper way , ai is confused
+❌ show proper errors on frontend when create expense doesnt work - e.g. expense name too long.
 
 
 💡 Development Ideas:
@@ -83,8 +81,6 @@ LEARNING:
 - learnt what CORS is
 - confusing methods, add bunch of comments. use feynam technique. rewrite it until its perfect.
 
-
-
 ✅ DONE:
 ✅ Create CRUD Operations on backend
 ✅ add admin UI and separate endpoint and separate admin expense dto potentially
@@ -99,12 +95,8 @@ LEARNING:
 ✅ migrate categories
 ✅ Added category keywords to database and added new clothing category
 ✅ pass category keywords to hugging face api to improve category suggestions
-
-this is a test to see if I can commit from phone
-
-
-test 
-
+✅ create transcript cleaner -see frictionless ux ideas
+✅ two pounds -> £2. also two pound -> £2. also two pound fifty -> £2.50
 
 Learning notes:
 
