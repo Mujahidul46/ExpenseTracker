@@ -52,4 +52,4 @@ export const CATEGORY_NAMES = Object.keys(CATEGORY_MAP);
 // }
 
 // words still not correctly categorised:
-// phone, chair, football
+// phone, chair, football, chewing gum, perfume

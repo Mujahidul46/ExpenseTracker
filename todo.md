@@ -2,21 +2,6 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
-make refactoring branch. refacotr services first then quick input component
-refactor user-dashboard.component.ts so that quick input bar is its own separate component. refactor step by step and ensure feature still works.
-
-ADD THIS
-│   ├── quick-input-bar/              ← Quick text + voice
-│   │   ├── quick-input-bar.component.ts
-│   │   ├── quick-input-bar.component.html
-│   │   └── quick-input-bar.component.scss
-
-ADD THESE SERVICES
-│   ├── transcript-cleaner.service.ts ← NEW
-│   ├── expense-parser.service.ts     ← NEW
-│   └── speech-recognition.service.ts ← NEW
-
-
 also if ai confidence is low then highlight to indicate to user to check
 
 host database in cloud
@@ -97,6 +82,7 @@ LEARNING:
 ✅ pass category keywords to hugging face api to improve category suggestions
 ✅ create transcript cleaner -see frictionless ux ideas
 ✅ two pounds -> £2. also two pound -> £2. also two pound fifty -> £2.50
+✅ created utils: transcript-cleaner.ts and expense-parser.ts
 
 Learning notes:
 
