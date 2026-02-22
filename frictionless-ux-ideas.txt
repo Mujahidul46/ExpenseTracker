@@ -7,7 +7,8 @@
 
 2. Smart Autocomplete
    - Type "st..." → suggests "Starbucks coffee - £4.50 - Food"
-   - Learns from your history
+   - Learns from your history of created expenses
+   - The more the user uses the app, the smarter it gets
 
 3. Bulk Paste Parser ⭐
    Example:

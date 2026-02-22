@@ -15,10 +15,11 @@ import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { WORD_TO_NUMBER_MAPPING } from '../constants/wordToNumberMapping';
 import { DecimalPipe } from '@angular/common';
 import { parseUserInput } from '../../utils/expense-parser';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-dashboard',
-  imports: [ConfirmationModalComponent, NgbToast, ToastsContainer, NgbTooltip, DecimalPipe],
+  imports: [ConfirmationModalComponent, NgbToast, ToastsContainer, NgbTooltip, DecimalPipe, FormsModule],
   templateUrl: './user-dashboard.html',
   styleUrl: './user-dashboard.scss'
 })
@@ -39,6 +40,8 @@ export class UserDashboardComponent implements OnInit {
     showToastMsg : boolean = false;
     userId! : number;
     isListening: boolean = false;
+    isEditingCell: boolean = false;
+    editValue: string = '';
     
     private speechRecognition: any = null;
     private lastExpectedTranscript: string = '';
@@ -108,6 +111,14 @@ export class UserDashboardComponent implements OnInit {
           }
         });
       });
+    }
+
+    startEdit(expense: Expense, column: string) {
+      this.isEditingCell = true;
+    }
+
+    saveEdit(expense: Expense) {
+      console.log('Edited expense to THIS: ' + this.editValue);
     }
 
     updateExpense(expense: Expense, successTemplate: TemplateRef<any>, failureTemplate: TemplateRef<any>) {

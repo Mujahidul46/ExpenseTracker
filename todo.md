@@ -2,6 +2,8 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
+Do inline editing of expenses. User should be able to update via clicking on cell
+Handle bulk items
 also if ai confidence is low then highlight to indicate to user to check
 
 host database in cloud
