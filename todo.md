@@ -2,6 +2,10 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
+create appointments table (through code) and popualte my personal data
+make new page for life tracker (non-expense related)
+need a cards screen which goes into diffrent parts of app. Card for expense tracker.
+Card for appointments manager. Etc
 Do inline editing of expenses. User should be able to update via clicking on cell
 Handle bulk items
 also if ai confidence is low then highlight to indicate to user to check

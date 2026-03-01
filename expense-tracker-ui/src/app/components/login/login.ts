@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
-export class Login {
+export class LoginComponent {
     constructor (
       private authService : AuthService,
       private router : Router

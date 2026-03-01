@@ -10,7 +10,7 @@ import { ToastService } from '../../services/toast-service';
   templateUrl: './signup.html',
   styleUrl: './signup.scss',
 })
-export class Signup {
+export class SignupComponent {
   constructor(
     private authService: AuthService,
     private router: Router,

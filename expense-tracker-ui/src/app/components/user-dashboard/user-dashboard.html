@@ -41,11 +41,14 @@
     <tbody>
       @for (expense of expenses; track expense.id) {
         <tr>
-          <td (click)="startEdit(expense, "Name")">
+          <td>
+            {{expense.name}}
+          </td>
+          <!-- <td (click)="startEdit(expense, "Name")">
             @if (isEditingCell) {
-              <!-- Listen for user to click enter, as that means they have finished editing -->
+              Listen for user to click enter, as that means they have finished editing -->
                <!-- Then grab whatever text there is and update the expense -->
-              <input 
+              <!--<input 
                 type="text"
                 [(ngModel)]="editValue"
                 (keydown.enter)="saveEdit(expense)"
@@ -54,7 +57,7 @@
             @else {
               {{expense.name}}
             }
-          </td>
+          </td> -->
           <td>{{expense.amount | number:'1.2-2'}}</td>
           <td>{{expense.categoryName}}[{{expense.categoryIcon}}]</td>
           <td>
