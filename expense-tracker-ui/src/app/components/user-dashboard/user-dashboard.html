@@ -41,34 +41,40 @@
     <tbody>
       @for (expense of expenses; track expense.id) {
         <tr>
-          <td>
-            {{expense.name}}
-          </td>
-          <!-- <td (click)="startEdit(expense, "Name")">
-            @if (isEditingCell) {
-              Listen for user to click enter, as that means they have finished editing -->
-               <!-- Then grab whatever text there is and update the expense -->
-              <!--<input 
+          <td (click)="startEdit(expense, 'Name')">
+            @if (editingExpenseId === expense.id && editingField === 'Name') {
+              <input 
                 type="text"
                 [(ngModel)]="editValue"
                 (keydown.enter)="saveEdit(expense)"
+                (blur)="cancelEdit()"
               />
             }
             @else {
               {{expense.name}}
             }
-          </td> -->
-          <td>{{expense.amount | number:'1.2-2'}}</td>
+          </td>
+          <td (click)="startEdit(expense, 'Amount')">
+            @if (editingExpenseId === expense.id && editingField === 'Amount') {
+              <input 
+                type="text"
+                [(ngModel)]="editValue"
+                (keydown.enter)="saveEdit(expense)"
+                (blur)="cancelEdit()"
+              />
+            }
+            @else {
+              {{expense.amount | number:'1.0-2'}}
+            }
+          </td>
           <td>{{expense.categoryName}}[{{expense.categoryIcon}}]</td>
           <td>
-            <button class="update" (click)="updateExpense(expense, successUpdateTpl, failureUpdateTpl)">Update ✏️</button>
             <button class="delete" (click)="openDeleteModal(expense)">Delete 🗑️</button>
           </td>
         </tr>
       }
     </tbody>
   </table>
-  <button class="createExpenseBtn" (click)="createExpenseUsingModal(successCreateTpl, failureCreateTpl)">Create new expense</button>
 </div>
 
 

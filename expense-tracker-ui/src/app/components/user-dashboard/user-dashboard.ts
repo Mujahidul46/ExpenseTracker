@@ -40,9 +40,10 @@ export class UserDashboardComponent implements OnInit {
     showToastMsg : boolean = false;
     userId! : number;
     isListening: boolean = false;
-    isEditingCell: boolean = false;
+    editingExpenseId: number | null = null;
+    editingField: string | null = null;
     editValue: string = '';
-    
+        
     private speechRecognition: any = null;
     private lastExpectedTranscript: string = '';
 
@@ -89,66 +90,41 @@ export class UserDashboardComponent implements OnInit {
       }});
     }
 
-    createExpenseUsingModal(successTemplate: TemplateRef<any>, failureTemplate: TemplateRef<any>) {
-      const modalRef = this.modalService.open(CreateExpenseModalComponent);
-
-      modalRef.result.then((expense) => {
-        this.expenseService.createExpense(expense).subscribe({
-          next: (createdExpense) => {
-            this.expenses.push(createdExpense);
-            this.expenseName = createdExpense.name;
-            this.toastService.show({
-              template: successTemplate,
-              classname: 'bg-success text-light'
-            });
-          },
-          error: (err) => {
-            console.error('Create expense failed', err);
-            this.toastService.show({
-              template: failureTemplate,
-              classname: 'bg-danger text-light'
-            });
-          }
-        });
-      });
+    // 1. User clicks on a cell, we need this cell's expense context
+    startEdit(expense: Expense, field: string) {
+      this.editingExpenseId = expense.id;
+      this.editingField = field;
+      if (field === 'Name') {
+        this.editValue = expense.name;
+      }
+      else if (field === 'Amount') {
+        this.editValue = expense.amount.toString();
+      }
+      
+      setTimeout(() => document.querySelector<HTMLInputElement>('td input')?.focus());
     }
 
-    startEdit(expense: Expense, column: string) {
-      this.isEditingCell = true;
-    }
-
-    saveEdit(expense: Expense) {
-      console.log('Edited expense to THIS: ' + this.editValue);
-    }
-
-    updateExpense(expense: Expense, successTemplate: TemplateRef<any>, failureTemplate: TemplateRef<any>) {
-      const modalRef = this.modalService.open(UpdateExpenseModalComponent);
-
-      modalRef.componentInstance.expense = {
-        name: expense.name,
-        amount: expense.amount,
-        categoryId: expense.categoryId
-      };
-
-      modalRef.result.then((updatedExpense) => {
-        this.expenseService.updateExpense(expense.id, updatedExpense).subscribe({
+    saveEdit(expense: any) {
+      if (this.editingField === 'Name') {
+        expense.name = this.editValue;
+      } else if (this.editingField === 'Amount') {
+        expense.amount = parseFloat(this.editValue);
+      }
+      this.editingExpenseId = null;
+      this.expenseService.updateExpense(expense.id, expense).subscribe({
           next: (result) => {
             const index = this.expenses.findIndex(e => e.id === expense.id);
             this.expenses[index] = result;
-            this.toastService.show({
-              template: successTemplate,
-              classname:'bg-success text-light'
-            });
           },
           error: (err) => {
             console.error('Update expense failed', err);
-            this.toastService.show({
-              template: failureTemplate,
-              classname:'bg-danger text-light'
-            });
           }
         });
-      });
+    }
+
+    cancelEdit() {
+      this.editingExpenseId = null;
+      this.editingField = null;
     }
 
     createExpense() {
