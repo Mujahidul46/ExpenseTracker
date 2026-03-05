@@ -14,9 +14,17 @@ if (!builder.Environment.IsDevelopment())
     var keyVaultUrl = builder.Configuration["KeyVault:Url"];
     if (!string.IsNullOrEmpty(keyVaultUrl))
     {
-        builder.Configuration.AddAzureKeyVault(
-            new Uri(keyVaultUrl),
-            new DefaultAzureCredential());
+        try
+        {
+            builder.Configuration.AddAzureKeyVault(
+                new Uri(keyVaultUrl),
+                new DefaultAzureCredential());
+        }
+        catch (Exception ex)
+        {
+            // Key Vault connection failed - will use environment variables instead
+            Console.WriteLine($"Key Vault connection failed: {ex.Message}");
+        }
     }
 }
 
@@ -33,7 +41,11 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins(
+                "http://localhost:4200",
+                "https://localhost:4200",
+                "https://wonderful-sea-0bb7cd003.2.azurestaticapps.net"
+              )
               .AllowAnyHeader()
               .AllowAnyMethod()
               .WithExposedHeaders("New-Auth-Token");
@@ -102,12 +114,17 @@ builder.Services.AddDbContext<ExpenseTrackerContext>(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Only enable swagger in development environment
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Only use for testing
+//app.UseSwagger();
+//app.UseSwaggerUI();
+//////////////////////////////
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAngular");

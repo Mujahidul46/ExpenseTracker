@@ -35,4 +35,4 @@ Deploying my app - the Azure services I used are:
 Azure SQL Database
 Azure Key Vault
 Azure Static Web App (UI)
-Azure App Service (API)
+Azure Web App (API)
