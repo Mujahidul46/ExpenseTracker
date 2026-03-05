@@ -1,0 +1,31 @@
+The app's database is now hosted on the cloud on Azure SQL Database rather than locally (LocalDB).
+
+Benefits:
+- If my laptop gets lost or breaks, the data is safe in the cloud
+- Other people can connect to the cloud database if I grant permission (impossible with LocalDB)
+- Automatic backups handled by Azure
+- 24/7 availability (LocalDB only works when my PC is on)
+- Required for deploying the app publicly without complex networking setup
+
+
+Process:
+1. Created a free Azure SQL Database in Azure Portal (free tier: 32GB storage, 100K vCore seconds/month)
+2. Stored the connection string securely using .NET User Secrets (not in appsettings.json to avoid exposing password in source control)
+   - Command: dotnet user-secrets set "ConnectionStrings:ExpenseDb" "<connection-string>"
+   - This will be moved to Azure Key Vault for production
+3. In SSMS, connected to local database and used "Generate Scripts" (Tasks → Generate Scripts)
+   - Selected "Schema and data" in Advanced options to include all table data
+   - Removed CREATE DATABASE and ALTER DATABASE statements (not supported in Azure SQL)
+4. Connected to Azure SQL in SSMS and ran the migration script
+5. I tested this works by running the API and checking that the data is being retreived from the cloud database.
+
+Note: 
+- Needed to whitelist my IP address in Azure Portal (SQL Server → Networking → Add client IP) to connect via SSMS
+- This is a one-time setup per IP address/location
+
+
+This is the connection string to the local database - we are no longer using this, but it might be useful as we essentially have
+access to two databases:
+  "ConnectionStrings": {
+    "ExpenseDb": "Server=(localdb)\\localExpensesDb;Database=ExpensesDb;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True"
+  },
