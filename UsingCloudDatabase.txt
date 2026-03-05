@@ -29,3 +29,10 @@ access to two databases:
   "ConnectionStrings": {
     "ExpenseDb": "Server=(localdb)\\localExpensesDb;Database=ExpensesDb;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True"
   },
+
+
+Deploying my app - the Azure services I used are:
+Azure SQL Database
+Azure Key Vault
+Azure Static Web App (UI)
+Azure App Service (API)
