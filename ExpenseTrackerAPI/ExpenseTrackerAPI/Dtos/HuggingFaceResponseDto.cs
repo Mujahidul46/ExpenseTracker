@@ -2,7 +2,7 @@
 {
     public class HuggingFaceResponseDto
     {
-        public string label { get; set; }
-        public double score { get; set; }
+        public string[] labels { get; set; } = Array.Empty<string>();
+        public double[] scores { get; set; } = Array.Empty<double>();
     }
 }

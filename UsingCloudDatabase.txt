@@ -30,6 +30,12 @@ access to two databases:
     "ExpenseDb": "Server=(localdb)\\localExpensesDb;Database=ExpensesDb;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True"
   },
 
+---- For deploying API:
+I had an issue where the api endpoints were not able to be hit, the issue was I deployed the source code in azure instead of the compiled DLLs
+For future deployments,
+cd c:\Users\mujahidulislam\source\repos\ExpenseTracker\ExpenseTrackerAPI\ExpenseTrackerAPI
+dotnet publish -c Release -o ./publish
+Then deploy from the PUBLISH folder
 
 Deploying my app - the Azure services I used are:
 Azure SQL Database

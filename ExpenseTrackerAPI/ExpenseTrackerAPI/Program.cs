@@ -8,25 +8,26 @@ using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// TEMPORARILY DISABLED - using Environment Variables instead
 // azure key vault used in prod
-if (!builder.Environment.IsDevelopment())
-{
-    var keyVaultUrl = builder.Configuration["KeyVault:Url"];
-    if (!string.IsNullOrEmpty(keyVaultUrl))
-    {
-        try
-        {
-            builder.Configuration.AddAzureKeyVault(
-                new Uri(keyVaultUrl),
-                new DefaultAzureCredential());
-        }
-        catch (Exception ex)
-        {
-            // Key Vault connection failed - will use environment variables instead
-            Console.WriteLine($"Key Vault connection failed: {ex.Message}");
-        }
-    }
-}
+// if (!builder.Environment.IsDevelopment())
+// {
+//     var keyVaultUrl = builder.Configuration["KeyVault:Url"];
+//     if (!string.IsNullOrEmpty(keyVaultUrl))
+//     {
+//         try
+//         {
+//             builder.Configuration.AddAzureKeyVault(
+//                 new Uri(keyVaultUrl),
+//                 new DefaultAzureCredential());
+//         }
+//         catch (Exception ex)
+//         {
+//             // Key Vault connection failed - will use environment variables instead
+//             Console.WriteLine($"Key Vault connection failed: {ex.Message}");
+//         }
+//     }
+// }
 
 // Add services to the container.
 
@@ -115,16 +116,16 @@ builder.Services.AddDbContext<ExpenseTrackerContext>(options =>
 var app = builder.Build();
 
 // Only enable swagger in development environment
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// if (app.Environment.IsDevelopment())
+// {
+//     app.UseSwagger();
+//     app.UseSwaggerUI();
+// }
 
 // Only use for testing
-//app.UseSwagger();
-//app.UseSwaggerUI();
-//////////////////////////////
+app.UseSwagger();
+app.UseSwaggerUI();
+////////////////////////////
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAngular");
