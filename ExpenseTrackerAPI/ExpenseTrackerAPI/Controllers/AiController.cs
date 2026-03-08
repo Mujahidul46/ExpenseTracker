@@ -71,21 +71,20 @@ namespace ExpenseTrackerAPI.Controllers
                 }
 
                 var responseContent = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("Hugging Face response: " + responseContent);
                 
-                var result = JsonSerializer.Deserialize<HuggingFaceResponseDto>(responseContent, new JsonSerializerOptions 
+                var results = JsonSerializer.Deserialize<List<HuggingFaceResponseDto>>(responseContent, new JsonSerializerOptions 
                 { 
                     PropertyNameCaseInsensitive = true 
                 });
 
-                if (result == null || result.labels.Length == 0)
+                if (results == null || results.Count == 0)
                 {
                     return Ok(new { suggestedCategory = "Other", confidence = 0.0 });
                 }
 
                 // Get the top label (highest score is first)
-                string suggestedCategoryWithKeywords = result.labels[0];
-                double confidence = result.scores[0];
+                string suggestedCategoryWithKeywords = results[0].label;
+                double confidence = results[0].score;
                 
                 string suggestedCategory = suggestedCategoryWithKeywords.Split("(")[0].Trim();
                 return Ok(new
