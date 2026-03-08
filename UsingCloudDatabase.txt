@@ -23,13 +23,6 @@ Note:
 - Needed to whitelist my IP address in Azure Portal (SQL Server → Networking → Add client IP) to connect via SSMS
 - This is a one-time setup per IP address/location
 
-
-This is the connection string to the local database - we are no longer using this, but it might be useful as we essentially have
-access to two databases:
-  "ConnectionStrings": {
-    "ExpenseDb": "Server=(localdb)\\localExpensesDb;Database=ExpensesDb;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True"
-  },
-
 ---- For deploying API:
 I had an issue where the api endpoints were not able to be hit, the issue was I deployed the source code in azure instead of the compiled DLLs
 For future deployments,
