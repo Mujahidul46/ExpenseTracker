@@ -16,7 +16,7 @@ probs need to block updating expense whilst it calculates
 see frictionless-ux-ideas.txt
 
 📋 TO DO:
-❌ host database in cloud
+User may want to add notes to expenses, currently it will be filtered out
 ❌ Money IN section
 ❌ show user name on navbar
 ❌ make swagger authorize button automatically pass jwt token instead of manual
@@ -88,6 +88,7 @@ LEARNING:
 ✅ create transcript cleaner -see frictionless ux ideas
 ✅ two pounds -> £2. also two pound -> £2. also two pound fifty -> £2.50
 ✅ created utils: transcript-cleaner.ts and expense-parser.ts
+✅ host database, api, ui in cloud and deploy
 
 Learning notes:
 
