@@ -2,6 +2,7 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
+HIGH PRIORITY: add a wishlist!
 create appointments table (through code) and popualte my personal data
 make new page for life tracker (non-expense related)
 need a cards screen which goes into diffrent parts of app. Card for expense tracker.
