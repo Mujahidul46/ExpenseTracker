@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <ul class="navbar-nav gap-3">
+      <!-- Logged out links -->
       @if(!isLoggedIn()) {
         <li class="nav-item">
           <a class="nav-link" routerLink="/signup" routerLinkActive="active">Sign Up</a>
@@ -11,9 +12,12 @@
           <a class="nav-link" routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
         </li>
       }
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/user-dashboard" routerLinkActive="active">User Dashboard</a>
-      </li>
+      <!-- Logged in links -->
+      @if(isLoggedIn()) {
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        </li>
+      }
       @if(isAdmin() && isLoggedIn()) {
         <li class="nav-item">
           <a class="nav-link" routerLink="/admin-dashboard" routerLinkActive="active">Admin Dashboard</a>
@@ -30,3 +34,6 @@
 
 <router-outlet></router-outlet>
 <app-toasts></app-toasts>
+@if (isLoggedIn()) {
+  <app-bottom-nav></app-bottom-nav>
+}

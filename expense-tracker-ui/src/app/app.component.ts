@@ -3,11 +3,12 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { ToastsContainer } from './shared/toasts-container/toasts-container';
 import { AuthService } from './services/auth.service';
 import { CommonModule } from '@angular/common';
+import { BottomNav } from './components/bottom-nav/bottom-nav';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, ToastsContainer, CommonModule],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, ToastsContainer, CommonModule, BottomNav],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
