@@ -5,4 +5,5 @@
 Figma Mockup:
 
 
-<img width="313" height="605" alt="image" src="https://github.com/user-attachments/assets/7e59e263-390a-4e66-8893-06a2be610ce2" />
+<img width="397" height="742" alt="image" src="https://github.com/user-attachments/assets/4fbeb023-0b9e-42d8-9ba9-c1079acece24" />
+
