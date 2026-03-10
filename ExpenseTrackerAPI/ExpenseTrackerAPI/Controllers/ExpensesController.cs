@@ -23,13 +23,18 @@ namespace ExpenseTrackerAPI.Controllers
             _mapper = mapper;
         }
 
+        //GET /api/expenses/users/1?date=2026-03-05
+        // Modify this to include the date
         [HttpGet("users/{userId}")]
-        public ActionResult<List<ExpenseDto>> GetExpenses(int userId)
+        public ActionResult<List<ExpenseDto>> GetExpenses(int userId, [FromQuery] DateTime? date = null)
         {
+            date = date ?? DateTime.Today; // If date is not passed in, assume they want expenses for TODAY
+
             // add validation for userId
             var expenses = _dbContext.Expenses
                 .Include(expenses => expenses.Category) // if not included, the join doesnt happen and Category is null.
                 .Where(expenses => expenses.UserId == userId)
+                .Where(expenses => expenses.CreatedAt.Date == date)
                 .ToList();
 
             var expenseDtos = _mapper.Map<List<ExpenseDto>>(expenses);

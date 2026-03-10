@@ -8,8 +8,15 @@ import { baseApiUrl } from "../../environment";
 export class ExpenseService {
     constructor(private http: HttpClient) {}
 
-    public getExpenses(userId: number): Observable<Expense[]> {
-        return this.http.get<Expense[]>(`${baseApiUrl}/expenses/users/${userId}`);
+    public getExpenses(userId: number, date?: Date): Observable<Expense[]> {
+        let url = `${baseApiUrl}/expenses/users/${userId}`;
+        
+        if (date) {
+            let dateAsString = date.toISOString().split('T')[0]; // Get YYYY-MM-DD format
+            url += `?date=${dateAsString}`;
+        }
+
+        return this.http.get<Expense[]>(url);
     }
 
     public deleteExpense(expenseId: number): Observable<void> {

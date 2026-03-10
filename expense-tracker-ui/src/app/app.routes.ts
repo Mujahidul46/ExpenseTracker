@@ -9,8 +9,9 @@ import { UserDashboardComponent } from './components/user-dashboard/user-dashboa
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
-    { path: 'signup', component: SignupComponent},
-    { path: 'user-dashboard', component: UserDashboardComponent },
+    { path: 'signup', component: SignupComponent },
+    //{ path: 'user-dashboard', component: UserDashboardComponent },
+    { path: 'expenses', component: Expenses },
     { path: 'expenses', component: Expenses },
     { path: 'stats', component: Stats },
     { path: 'admin-dashboard', component: AdminDashboardComponent },

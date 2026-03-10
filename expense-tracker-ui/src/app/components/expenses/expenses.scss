@@ -1,0 +1,32 @@
+.expense-card {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 20px;
+    padding: 14px 18px;
+    margin: 32px 20px 32px 20px;
+    
+    .icon {
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 20px;
+        background: #fef3c7;
+        margin-right: 14px;
+    }
+
+    .name {
+        font-size: 16px;
+        font-weight: 500;
+        color: #1a1a1a;
+        font-weight: bold;
+    }
+    
+    .amount {
+        margin-left: auto;
+        font-size: 16px;
+    }
+}
