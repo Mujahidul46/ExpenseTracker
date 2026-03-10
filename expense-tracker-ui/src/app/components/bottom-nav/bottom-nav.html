@@ -1,7 +1,7 @@
 <nav>
   <div>
     <span>💰</span>
-    <span>Expenses</span>
+    <span routerLink="/user-dashboard">Expenses</span> <!-- Change to routerLink="/expenses"-->
   </div>
   <div>
     <span>➕</span>
@@ -9,6 +9,14 @@
   </div>
   <div>
     <span>📊</span>
-    <span>Stats</span>
+    <span routerLink="/stats">Stats</span>
+  </div>
+  <div>
+    <span>👤</span>
+    <span routerLink="/admin-dashboard">Admin</span>
+  </div>
+  <div>
+    <span>👋</span>
+    <span (click)="logout()">Logout</span>
   </div>
 </nav>

@@ -1,7 +1,8 @@
+<!-- Replaced by bottom-nav -->
+<!--
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <ul class="navbar-nav gap-3">
-      <!-- Logged out links -->
       @if(!isLoggedIn()) {
         <li class="nav-item">
           <a class="nav-link" routerLink="/signup" routerLinkActive="active">Sign Up</a>
@@ -10,12 +11,6 @@
       @if(!isLoggedIn()) {
         <li class="nav-item">
           <a class="nav-link" routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
-        </li>
-      }
-      <!-- Logged in links -->
-      @if(isLoggedIn()) {
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
         </li>
       }
       @if(isAdmin() && isLoggedIn()) {
@@ -31,6 +26,7 @@
     </ul>
   </div>
 </nav>
+-->
 
 <router-outlet></router-outlet>
 <app-toasts></app-toasts>
