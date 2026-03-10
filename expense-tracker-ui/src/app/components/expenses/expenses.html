@@ -1,4 +1,5 @@
 <!-- Add cards here -->
+<p class="total">Spent £{{ totalExpense | number: '1.2-2'}}</p>
 @for (expense of expenses; track expense.id) {
     <div class="expense-card">
         <span class="icon">{{ expense.categoryIcon }}</span>

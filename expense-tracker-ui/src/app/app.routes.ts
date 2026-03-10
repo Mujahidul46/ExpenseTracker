@@ -5,12 +5,14 @@ import { SignupComponent } from './components/signup/signup';
 import { Stats } from './components/stats/stats';
 import { Expenses } from './components/expenses/expenses';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard';
+import { AddExpense } from './components/add-expense/add-expense';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
     //{ path: 'user-dashboard', component: UserDashboardComponent },
+    { path: 'add-expense', component: AddExpense },
     { path: 'expenses', component: Expenses },
     { path: 'expenses', component: Expenses },
     { path: 'stats', component: Stats },
