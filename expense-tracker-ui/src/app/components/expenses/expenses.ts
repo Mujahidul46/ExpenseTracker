@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Expense } from '../../interfaces/Expense';
 import { ExpenseService } from '../../services/expenses.service';
 import { AuthService } from '../../services/auth.service';
@@ -10,7 +10,7 @@ import { DecimalPipe } from '@angular/common';
   templateUrl: './expenses.html',
   styleUrl: './expenses.scss',
 })
-export class Expenses {
+export class Expenses implements OnInit {
   userId! : number;
   expenses : Expense[] = [];
   totalExpense: number = 0;

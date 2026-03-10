@@ -8,7 +8,7 @@ import { UserDashboardComponent } from './components/user-dashboard/user-dashboa
 import { AddExpense } from './components/add-expense/add-expense';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '', redirectTo: 'login', pathMatch: 'full' }, // empty path makes it so that login page is first one to load when app starts
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
     //{ path: 'user-dashboard', component: UserDashboardComponent },

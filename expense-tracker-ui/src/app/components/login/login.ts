@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
@@ -9,14 +9,18 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     constructor (
       private authService : AuthService,
       private router : Router
     ) 
-    {
+    {};
 
-    };
+    ngOnInit() {
+      if (this.authService.isLoggedIn()) {
+        this.router.navigate(['/expenses']);
+      }
+    }
 
     username: string = '';
     password: string = '';
