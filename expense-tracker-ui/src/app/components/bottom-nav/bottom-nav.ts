@@ -21,4 +21,8 @@ export class BottomNav {
     this.authService.logOut();
     this.router.navigate(['/login']);
   }
+
+  isLoggedIn() {
+    return this.authService.isLoggedIn();
+  }
 }

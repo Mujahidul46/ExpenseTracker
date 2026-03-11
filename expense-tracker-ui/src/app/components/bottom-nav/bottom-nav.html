@@ -1,22 +1,36 @@
-<nav>
-  <div routerLink="/expenses">
-    <span>💰</span>
-    <span>Expenses</span>
-  </div>
-  <div routerLink="/add-expense">
-    <span>➕</span>
-    <span>Add Expense</span>
-  </div>
-  <div routerLink="/stats">
-    <span>📊</span>
-    <span>Stats</span>
-  </div>
-  <div routerLink="/admin-dashboard">
-    <span>👤</span>
-    <span>Admin</span>
-  </div>
-  <div (click)="logout()">
-    <span>👋</span>
-    <span>Logout</span>
-  </div>
-</nav>
+@if (isLoggedIn()) {
+  <nav>
+    <div routerLink="/expenses">
+      <span>💰</span>
+      <span>Expenses</span>
+    </div>
+    <div routerLink="/add-expense">
+      <span>➕</span>
+      <span>Add Expense</span>
+    </div>
+    <div routerLink="/stats">
+      <span>📊</span>
+      <span>Stats</span>
+    </div>
+    <div routerLink="/admin-dashboard">
+      <span>👤</span>
+      <span>Admin</span>
+    </div>
+    <div (click)="logout()">
+      <span>👋</span>
+      <span>Logout</span>
+    </div>
+  </nav>
+}
+@else {
+  <nav>
+    <div routerLink="/login">
+      <span>🔑</span>
+      <span>Login</span>
+    </div>
+    <div routerLink="/signup">
+      <span>✏️</span>
+      <span>Sign Up</span>
+    </div>
+  </nav>
+}
