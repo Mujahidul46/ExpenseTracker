@@ -2,6 +2,7 @@
 Use ng bootstrap docs for styling: https://ng-bootstrap.github.io/#/home
 
 🚀 Work on next: 
+make the dates more performant by fetching one months worth of expenses . or use filtering. find solution cos right now too many api calls
 HIGH PRIORITY: add a wishlist!
 create appointments table (through code) and popualte my personal data
 make new page for life tracker (non-expense related)
