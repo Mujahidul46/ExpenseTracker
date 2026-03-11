@@ -1,22 +1,22 @@
 <nav>
-  <div>
+  <div routerLink="/expenses">
     <span>💰</span>
-    <span routerLink="/expenses">Expenses</span>
+    <span>Expenses</span>
   </div>
-  <div>
+  <div routerLink="/add-expense">
     <span>➕</span>
-    <span routerLink="/add-expense">Add Expense</span>
+    <span>Add Expense</span>
   </div>
-  <div>
+  <div routerLink="/stats">
     <span>📊</span>
-    <span routerLink="/stats">Stats</span>
+    <span>Stats</span>
   </div>
-  <div>
+  <div routerLink="/admin-dashboard">
     <span>👤</span>
-    <span routerLink="/admin-dashboard">Admin</span>
+    <span>Admin</span>
   </div>
-  <div>
+  <div (click)="logout()">
     <span>👋</span>
-    <span (click)="logout()">Logout</span>
+    <span>Logout</span>
   </div>
 </nav>

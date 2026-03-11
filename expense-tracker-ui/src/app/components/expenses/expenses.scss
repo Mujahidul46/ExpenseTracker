@@ -1,9 +1,31 @@
-.total {
-    color: black;
-    margin: 20px 0px;
-    text-align: center;
-    font-weight: bold;
+.top-section {
+    .date-line {
+        display: flex;
+        margin: 20px 0px;
+        font-size: 1.25rem;
+        font-weight: bold;
+
+        .date {
+            flex: 1;
+            text-align: center;
+        }
+
+        .left-arrow, .right-arrow {
+            width: 40px;
+            text-align: center;
+        }
+
+        
+    }
+
+    .total {
+        color: black;
+        margin: 20px 0px;
+        text-align: center;
+        font-weight: bold;
+    }
 }
+
 .expense-card {
     display: flex;
     align-items: center;

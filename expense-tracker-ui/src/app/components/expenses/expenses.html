@@ -1,5 +1,17 @@
-<!-- Add cards here -->
-<p class="total">Spent £{{ totalExpense | number: '1.2-2'}}</p>
+<div class="top-section">
+    <div class="date-line"> <!-- <          DATE             > -->
+        <span class="left-arrow" (click)="getExpensesForDate('previousDay')">&lt;</span>
+        <span class="date">{{ currentDate | date: 'mediumDate'}}</span>
+        <span
+            class="right-arrow" 
+            (click)="getExpensesForDate('nextDay')"
+            [style.visibility] = "isToday() ? 'hidden' : 'visible'">
+            &gt;
+        </span> 
+    </div>
+    <p class="total">Spent £{{ totalExpense | number: '1.2-2'}}</p>
+</div>
+
 @for (expense of expenses; track expense.id) {
     <div class="expense-card">
         <span class="icon">{{ expense.categoryIcon }}</span>
