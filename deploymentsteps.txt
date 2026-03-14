@@ -1,0 +1,33 @@
+# Expense Tracker Deployment Steps
+
+## Backend (API) Deployment
+
+1. Open terminal in VS Code
+2. Navigate to the API project folder:
+   cd ExpenseTrackerAPI/ExpenseTrackerAPI
+
+3. Build and publish with latest code:
+   dotnet publish -c Release -o ./publish
+   
+   ⚠️ IMPORTANT: This step recompiles the API with your LATEST code changes
+   and outputs the DLLs to the publish folder. If you skip this, you'll
+   deploy OLD/stale code!
+
+4. Deploy to Azure:
+   - Open the publish folder in VS Code
+   - Press Ctrl+Shift+P
+   - Type "Azure App Service: Deploy to Web App"
+   - Select your app (expense-tracker-api)
+   - Confirm overwrite
+
+5. (Optional) Restart the App Service in Azure Portal for good measure
+
+
+## Frontend (Angular) Deployment
+
+1. Commit your changes
+
+2. Push to GitHub:
+   git push
+
+3. GitHub Actions will automatically build and deploy to Azure Static Web Apps
