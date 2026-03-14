@@ -1,3 +1,4 @@
+// Rebuild trigger: March 14 2026
 import { Component, OnInit } from '@angular/core';
 import { Expense } from '../../interfaces/Expense';
 import { ExpenseService } from '../../services/expenses.service';
