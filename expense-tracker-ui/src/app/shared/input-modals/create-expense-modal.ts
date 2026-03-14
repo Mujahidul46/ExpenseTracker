@@ -21,17 +21,6 @@ import { FormsModule } from '@angular/forms';
 				<label class="form-label">Amount:</label>
 				<input type="text" class="form-control" [(ngModel)]="expense.amount">
 			</div>
-
-			<div class="mb-3">
-				<label class="form-label">Category:</label>
-				<select class="form-select" [(ngModel)]="expense.categoryId">
-					<option [ngValue]="1">Food</option>
-					<option [ngValue]="2">Transport</option>
-					<option [ngValue]="3">Entertainment</option>
-					<option [ngValue]="4">Other</option>
-					<option [ngValue]="5">Subscription</option>
-				</select>
-			</div>
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-outline-secondary" (click)="activeModal.dismiss()">Cancel</button>

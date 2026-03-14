@@ -1,0 +1,56 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.add-expense-form {
+    background-color: white;
+    padding: 32px;
+
+    .main-section {
+        display: flex;
+        flex-direction: column;
+
+        .name-section, .amount-section {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 16px;
+
+            label {
+                margin-bottom: 8px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .form-title {
+        text-align: center;
+
+        h4 {
+            font-weight: bold; // why is this not making the create expense title bold
+        }
+    }
+
+    .expense-form-input {
+        border-radius: 8px;
+    }
+
+    .expense-modal-footer {
+        display: flex;
+        justify-content: center;
+
+        .create-expense-button {
+            background-color: #4CAF50;
+            font-weight: bold;
+        }
+    }
+
+    // how do i add spacing between name label and input field, and between amount label and input field?
+}

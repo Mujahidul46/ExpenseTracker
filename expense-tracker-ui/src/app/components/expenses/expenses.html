@@ -19,3 +19,7 @@
         <span class="amount">£{{ expense.amount | number: '1.2-2' }}</span>
     </div>
 }
+
+@if (showAddExpenseModal) {
+    <app-add-expense></app-add-expense>
+}

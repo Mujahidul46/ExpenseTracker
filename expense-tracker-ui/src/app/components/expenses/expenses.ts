@@ -4,10 +4,11 @@ import { Expense } from '../../interfaces/Expense';
 import { ExpenseService } from '../../services/expenses.service';
 import { AuthService } from '../../services/auth.service';
 import { DatePipe, DecimalPipe } from '@angular/common';
+import { AddExpense } from '../add-expense/add-expense';
 
 @Component({
   selector: 'app-expenses',
-  imports: [DecimalPipe, DatePipe],
+  imports: [DecimalPipe, DatePipe, AddExpense],
   templateUrl: './expenses.html',
   styleUrl: './expenses.scss',
 })
@@ -16,6 +17,7 @@ export class Expenses implements OnInit {
   expenses : Expense[] = [];
   totalExpense: number = 0;
   currentDate: Date = new Date();
+  showAddExpenseModal: boolean = false;
 
   constructor (
     private authService : AuthService,
